@@ -9,7 +9,7 @@ namespace CKK
         static void Main(string[] args)
         {
             Store mikesGeneral = new Store();
-            Console.WriteLine("Welcome to Mikes Generals");
+            Console.WriteLine("Welcome to Corey's Knick Knacks");
             var input = "";
             while (input != "4")
             {
