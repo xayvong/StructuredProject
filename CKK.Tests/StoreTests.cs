@@ -49,19 +49,42 @@ namespace CKK.Tests
         }
 
         [Fact]
+        public void AddStoreItem_InvalidValueGiven()
+        {
+            try
+            {
+                //Assemble
+                Store store = new();
+                var expected = store.AddStoreItem(new Product(), -2);
+                //Act
+
+                //Assert
+                //I know I am testing two things, but it is really the same thing?
+                Assert.Null(expected);
+                Assert.Empty(store.GetStoreItems());
+            }
+            catch
+            {
+                throw new XunitException("The Store Items were populated incorrectly.");
+            }
+        }
+
+        [Fact]
         public void AddStoreItem_ShouldAddNewItem()
         {
             try
             {
                 //Assemble
                 Store store = new();
-                var expected = store.AddStoreItem(new Product(), 5);
+                var product = new Product();
+                product.SetId(1);
+                var expected = store.AddStoreItem(product, 5);
                 //Act
 
                 //Assert
                 //I know I am testing two things, but it is really the same thing?
                 Assert.Single(store.GetStoreItems());
-                Assert.Equal(expected, store.FindStoreItemById(expected.GetProduct().GetId()));
+                Assert.Equal(expected, store.FindStoreItemById(1));
             }
             catch
             {

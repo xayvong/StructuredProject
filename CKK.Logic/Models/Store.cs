@@ -35,6 +35,10 @@ namespace CKK.Logic.Models
         }
         public StoreItem AddStoreItem(Product product, int quantity)
         {
+            if(quantity < 0)
+            {
+                return null;
+            }
             var existingItem = FindStoreItemById(product.GetId());
             if(existingItem == null)
             {

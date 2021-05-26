@@ -22,14 +22,70 @@ namespace CKK.Tests
                 var actual = cart.AddProduct(product, -5);
                 //Assert
                 Assert.Null(actual);
+                Assert.Empty(cart.GetProducts());
             }
             catch
             {
-                throw new XunitException("Did not return null when that is what was expected.");
+                throw new XunitException("Did not populate the cart correctly!");
+            }
+        }
+
+        [Fact]
+        public void AddProduct_ShouldAddNewItem()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product = new Product();
+                product.SetId(5);
+                //Act
+                var expected = cart.AddProduct(product, 5);
+
+                //Assert
+                Assert.Single(cart.GetProducts());
+                Assert.Equal(expected, cart.GetProductById(5));
+            }
+            catch
+            {
+                throw new XunitException("The product was not added correctly to the List.");
             }
         }
         [Fact]
-        public void AddProduct_AddProductWhenFull()
+        public void AddProduct_ShouldAddQuantity()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product = new Product();
+                product.SetId(5);
+                //Act
+                cart.AddProduct(product, 5);
+                cart.AddProduct(product, 1);
+
+                var expected = 6;
+                var actual = cart.GetProductById(5).GetQuantity();
+
+                //Assert
+                Assert.Single(cart.GetProducts());
+                Assert.Equal(expected,actual);
+            }
+            catch
+            {
+                throw new XunitException("The product was not added correctly to the List.");
+            }
+        }
+
+
+
+
+        [Fact]
+        public void AddProduct_ShouldAddNewItemWithMultiple()
         {
             try
             {
@@ -38,64 +94,40 @@ namespace CKK.Tests
                 cust.SetId(1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.SetId(5);
                 var product2 = new Product();
                 product2.SetId(2);
-                var product3 = new Product();
-                product3.SetId(3);
 
-                cart.AddProduct(product1);
-                cart.AddProduct(product2);
-                cart.AddProduct(product3);
                 //Act
+                cart.AddProduct(product1, 3);
+                cart.AddProduct(product2, 9);
+                cart.AddProduct(product1, 3);
 
-                var actual = cart.AddProduct(new Product());
-
-                //Assert
-                Assert.Null(actual);
-            }
-            catch
-            {
-                throw new XunitException("Did not return null when that is what was expected.");
-            }
-        }
-
-        [Fact]
-        public void AddProduct_AddProductWhenExists()
-        {
-            try
-            {
-                //Assemble
-                Customer cust = new Customer();
-                cust.SetId(1);
-                ShoppingCart cart = new ShoppingCart(cust);
-                var product1 = new Product();
-                product1.SetId(1);
-                var product2 = new Product();
-                product2.SetId(2);
-                var product3 = new Product();
-                product3.SetId(3);
-
-                cart.AddProduct(product1);
-                cart.AddProduct(product2);
-                cart.AddProduct(product3);
-                //Act
-                var returnedItem = cart.AddProduct(product1, 3);
-                var expected = 4;
-
-
-                //Assert
+                var expected = 6;
                 var actual = cart.GetProductById(1).GetQuantity();
-                Assert.Equal(expected, returnedItem.GetQuantity());
+                //Assert
+
+                Assert.Collection(cart.GetProducts(),
+                    elem1 => {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(expected, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(9, elem2.GetQuantity());
+                    }
+                    );
                 Assert.Equal(expected, actual);
             }
             catch
             {
-                throw new XunitException("Did not add item correctly.");
+                throw new XunitException("The product was not populated correctly.");
             }
         }
+
         [Fact]
-        public void AddProduct_AddNewProduct()
+        public void RemoveProduct_ShouldRemoveItemCorrectly()
         {
             try
             {
@@ -104,23 +136,208 @@ namespace CKK.Tests
                 cust.SetId(1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.SetId(5);
                 var product2 = new Product();
                 product2.SetId(2);
                 var product3 = new Product();
                 product3.SetId(3);
 
-                cart.AddProduct(product1);
-                cart.AddProduct(product2);
+                cart.AddProduct(product1, 2);
+                cart.AddProduct(product2, 3);
+                cart.AddProduct(product3, 8);
+
+
                 //Act
-                var actual = cart.AddProduct(product3, 5).GetQuantity();
+                var actual = cart.RemoveProduct(3, 4);
 
                 //Assert
-                Assert.Equal(5, actual);
+                Assert.Collection(cart.GetProducts(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    },
+                    elem3 =>
+                    {
+                        Assert.Equal(3, elem3.GetProduct().GetId());
+                        Assert.Equal(4, elem3.GetQuantity());
+                    });
+                Assert.Equal(cart.GetProductById(3), actual);
             }
             catch
             {
-                throw new XunitException("Did not add product correctly");
+                throw new XunitException("The item was not removed correctly");
+            }
+        }
+
+
+        [Fact]
+        public void RemoveProduct_ShouldRemoveEmtpyStoreItem()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(5);
+                var product2 = new Product();
+                product2.SetId(2);
+                var product3 = new Product();
+                product3.SetId(3);
+
+                cart.AddProduct(product1, 2);
+                cart.AddProduct(product2, 3);
+                cart.AddProduct(product3, 8);
+
+                //Act
+                var actual = cart.RemoveProduct(3, 8);
+
+                //Assert
+                Assert.Collection(cart.GetProducts(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    });
+                Assert.Equal(cart.GetProductById(3), actual);
+            }
+            catch
+            {
+                throw new XunitException("The item was not removed correctly");
+            }
+        }
+
+        [Fact]
+        public void RemoveProduct_ShouldRemoveIfQuantityIsNegative()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(5);
+                var product2 = new Product();
+                product2.SetId(2);
+                var product3 = new Product();
+                product3.SetId(3);
+
+                cart.AddProduct(product1, 2);
+                cart.AddProduct(product2, 3);
+                cart.AddProduct(product3, 8);
+
+                //Act
+                var actual = cart.RemoveProduct(3, 18);
+
+                //Assert
+                Assert.Collection(cart.GetProducts(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    });
+                Assert.Equal(cart.GetProductById(3), actual);
+            }
+            catch
+            {
+                throw new XunitException("The item was not removed correctly");
+            }
+        }
+
+        [Fact]
+        public void FindStoreItemById_ShouldReturnCorrectItem()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(5);
+                var product2 = new Product();
+                product2.SetId(2);
+
+                //Act
+                var expected = cart.AddProduct(product1, 3);
+                cart.AddProduct(product2, 9);
+
+
+                //Act
+                var actual = cart.GetProductById(2);
+
+                //Assert
+                Assert.Equal(expected, actual);
+            }
+            catch
+            {
+                throw new XunitException("The correct Item was not returned!");
+            }
+        }
+
+        [Fact]
+        public void FindStoreItemById_ShouldReturnNull()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(5);
+
+                //Act
+                cart.AddProduct(product1, 40);
+
+                //Assert
+                Assert.Null(cart.GetProductById(1));
+            }
+            catch
+            {
+                throw new XunitException("The correct value was not given! Should have returned null.");
+            }
+        }
+
+        [Fact]
+        public void FindStoreItemById_ShouldReturnEmptyStoreItem()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(100);
+                //Act
+                cart.AddProduct(product1, 40);
+                cart.RemoveProduct(100, 50);
+
+                //Assert
+                Assert.Null(cart.GetProductById(100));
+            }
+            catch
+            {
+                throw new XunitException("Was expecting null but was given a value. ");
             }
         }
 
@@ -158,7 +375,7 @@ namespace CKK.Tests
             }
         }
         [Fact]
-        public void GetProduct_ReturnsCorrectItem()
+        public void GetProducts_ReturnsCorrectItems()
         {
             try
             {
@@ -172,18 +389,22 @@ namespace CKK.Tests
                 product2.SetId(2);
                 var product3 = new Product();
                 product3.SetId(3);
+                //Act
 
-                cart.AddProduct(product1);
-                cart.AddProduct(product2);
-                var expected = cart.AddProduct(product3);
-                //Act 
-                var actual = cart.GetProduct(3);
+                var item1 = cart.AddProduct(product1, 1);
+                var item2 = cart.AddProduct(product2, 2);
+                var item3 = cart.AddProduct(product3, 3);
+
                 //Assert
-                Assert.Equal(expected, actual);
+                Assert.Collection(
+                    cart.GetProducts(),
+                    elem1 => Assert.Equal(item1, elem1), 
+                    elem2 => Assert.Equal(item2, elem2),
+                    elem3 => Assert.Equal(item3, elem3));
             }
             catch
             {
-                throw new XunitException("Did not return the correct item!");
+                throw new XunitException("Did not return the correct items!");
             }
         }
     }
