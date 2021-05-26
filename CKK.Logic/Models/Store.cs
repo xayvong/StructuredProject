@@ -10,9 +10,12 @@ namespace CKK.Logic.Models
     {
         private int Id;
         private string Name;
-        private Product Product1;
-        private Product Product2;
-        private Product Product3;
+        private List<StoreItem> Items;
+
+        public Store()
+        {
+            Items = new List<StoreItem>();
+        }
 
         public int GetId()
         {
@@ -30,75 +33,50 @@ namespace CKK.Logic.Models
         {
             Name = name;
         }
-        public void AddStoreItem(Product product)
+        public StoreItem AddStoreItem(Product product, int quantity)
         {
-            if (Product1 == null)
+            var existingItem = FindStoreItemById(product.GetId());
+            if(existingItem == null)
             {
-                Product1 = product;
-            }
-            else if (Product2 == null)
+                StoreItem newItem = new StoreItem(product, quantity);
+                Items.Add(newItem);
+                return newItem;
+            }else
             {
-                Product2 = product;
-            }
-            else if (Product3 == null)
-            {
-                Product3 = product;
+                existingItem.SetQuantity(existingItem.GetQuantity() + quantity);
+                return existingItem;
             }
         }
 
-        public void RemoveStoreItem(int productNumber)
+        public StoreItem RemoveStoreItem(int id, int quantity)
         {
-            if (productNumber == 1)
+            var existingItem = FindStoreItemById(id);
+            if(existingItem != null)
             {
-                Product1 = null;
-            }
-            if (productNumber == 2)
-            {
-                Product2 = null;
-            }
-            if (productNumber == 3)
-            {
-                Product3 = null;
-            }
-        }
-
-        public Product GetStoreItem(int productNumber)
-        {
-            if (productNumber == 1)
-            {
-                return Product1;
-            }
-            if (productNumber == 2)
-            {
-                return Product2;
-            }
-            if (productNumber == 3)
-            {
-                return Product3;
-            }
-            else
+                if (existingItem.GetQuantity() - quantity < 0)
+                {
+                    existingItem.SetQuantity(0);
+                }
+                else
+                {
+                    existingItem.SetQuantity(existingItem.GetQuantity() - quantity);
+                }
+                return existingItem;
+            }else
             {
                 return null;
             }
         }
-        public Product FindStoreItemById(int id)
+
+        public StoreItem FindStoreItemById(int id)
         {
-            if (Product1.GetId() == id)
-            {
-                return Product1;
-            }
-            else if (Product2.GetId() == id)
-            {
-                return Product2;
-            }
-            else if (Product3.GetId() == id)
-            {
-                return Product3;
-            }
-            else
-            {
-                return null;
-            }
+            return Items.FirstOrDefault(p => p.GetProduct().GetId() == id);
         }
+
+        public List<StoreItem> GetStoreItems()
+        {
+            return Items;
+        }
+        
     }
 }

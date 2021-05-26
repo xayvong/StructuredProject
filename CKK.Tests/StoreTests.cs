@@ -49,65 +49,85 @@ namespace CKK.Tests
         }
 
         [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_FromEmpty()
+        public void AddStoreItem_ShouldAddNewItem()
         {
             try
             {
                 //Assemble
                 Store store = new();
-                var expected = new Product();
-                store.AddStoreItem(expected);
+                var expected = store.AddStoreItem(new Product(), 5);
                 //Act
-                var actual = store.GetStoreItem(1);
+
                 //Assert
-                Assert.Equal(expected, actual);
+                //I know I am testing two things, but it is really the same thing?
+                Assert.Single(store.GetStoreItems());
+                Assert.Equal(expected, store.FindStoreItemById(expected.GetProduct().GetId()));
             }
             catch
             {
-                throw new XunitException("The product was not populated correctly.");
+                throw new XunitException("The product was not added correctly to the List.");
             }
         }
 
         [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_OneFull()
+        public void AddStoreItem_ShouldAddQuantity()
+        {
+            try
+            {
+                //Assemble
+                Store store = new();
+                var product = new Product();
+                product.SetId(2);
+
+                //Act
+                store.AddStoreItem(product, 5);
+                store.AddStoreItem(product, 1);
+
+                var expected = 6;
+
+                var actual = store.FindStoreItemById(2).GetQuantity();
+
+                //Assert
+                Assert.Single(store.GetStoreItems()); //At this point, there should only be one item.
+                Assert.Equal(expected, actual);
+            }
+            catch
+            {
+                throw new XunitException("The product was not added correctly. ");
+            }
+        }
+
+        [Fact]
+        public void AddStoreItem_ShouldAddNewItemWithMultiple()
         {
             try
             {
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(expected);
-
-                //Act
-                var actual = store.GetStoreItem(2);
-                //Assert
-                Assert.Equal(expected, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated correctly.");
-            }
-        }
-
-        [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_TwoFull()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
+                product1.SetId(1);
                 var product2 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(expected);
+                product2.SetId(2);
 
                 //Act
-                var actual = store.GetStoreItem(3);
+                store.AddStoreItem(product1, 3);
+                store.AddStoreItem(product2, 9);
+                store.AddStoreItem(product1, 3);
+
+                var expected = 6;
+
+                var actual = store.FindStoreItemById(1).GetQuantity();
                 //Assert
+
+                Assert.Collection(store.GetStoreItems(),
+                    elem1 => {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                    }
+                    );
                 Assert.Equal(expected, actual);
             }
             catch
@@ -115,53 +135,46 @@ namespace CKK.Tests
                 throw new XunitException("The product was not populated correctly.");
             }
         }
+
         [Fact]
-        public void AddStoreProduct_NoSpotsAvailable()
+        public void RemoveStoreItem_ShouldRemoveItemCorrectly()
         {
             try
             {
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
+                product1.SetId(1);
                 var product2 = new Product();
+                product2.SetId(2);
                 var product3 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
-                store.AddStoreItem(expected);
+                product3.SetId(3);
+
+                store.AddStoreItem(product1, 2);
+                store.AddStoreItem(product2, 3);
+                store.AddStoreItem(product3, 8);
 
                 //Act
-                var actual = store.GetStoreItem(3);
-                //Assert
-                Assert.NotEqual(expected, actual);
-                Assert.Equal(product3, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated when it was not supposed to.");
-            }
-        }
-
-        [Fact]
-        public void RemoveStoreItem_ShouldRemoveSelectedItem()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var product2 = new Product();
-                var product3 = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
-
-                //Act
-                store.RemoveStoreItem(1);
+                var actual = store.RemoveStoreItem(3,4);
 
                 //Assert
-                Assert.Null(store.GetStoreItem(1));
+                Assert.Collection(store.GetStoreItems(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    },
+                    elem3 =>
+                    {
+                        Assert.Equal(3, elem3.GetProduct().GetId());
+                        Assert.Equal(4, elem3.GetQuantity());
+                    });
+                Assert.Equal(store.FindStoreItemById(3), actual);
             }
             catch
             {
@@ -170,49 +183,115 @@ namespace CKK.Tests
         }
 
         [Fact]
-        public void RemoveStoreItem_ShouldNotShiftItems()
+        public void RemoveStoreItem_ShouldKeepEmtpyStoreItem()
         {
             try
             {
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
+                product1.SetId(1);
                 var product2 = new Product();
+                product2.SetId(2);
                 var product3 = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
+                product3.SetId(3);
+
+                store.AddStoreItem(product1, 2);
+                store.AddStoreItem(product2, 3);
+                store.AddStoreItem(product3, 8);
 
                 //Act
+                var actual = store.RemoveStoreItem(3, 8);
 
-                store.RemoveStoreItem(2);
-                var actual = store.GetStoreItem(2);
                 //Assert
-                Assert.Null(store.GetStoreItem(2));
-                Assert.Equal(product1, store.GetStoreItem(1));
+                Assert.Collection(store.GetStoreItems(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    },
+                    elem3 =>
+                    {
+                        Assert.Equal(3, elem3.GetProduct().GetId());
+                        Assert.Equal(0, elem3.GetQuantity());
+                    });
+                Assert.Equal(store.FindStoreItemById(3), actual);
             }
             catch
             {
-                throw new XunitException("The item did not get removed correctly!");
+                throw new XunitException("The item was not removed correctly");
             }
         }
 
         [Fact]
-        public void GetStoreItem_ShouldReturnCorrectItem()
+        public void RemoveStoreItem_ShouldMakeStoreItemQuantityZero()
         {
             try
             {
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                var expected = new Product();
+                product1.SetId(1);
+                var product2 = new Product();
+                product2.SetId(2);
+                var product3 = new Product();
+                product3.SetId(3);
 
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product1);
-                store.AddStoreItem(expected);
+                store.AddStoreItem(product1, 2);
+                store.AddStoreItem(product2, 3);
+                store.AddStoreItem(product3, 8);
 
                 //Act
-                var actual = store.GetStoreItem(3);
+                var actual = store.RemoveStoreItem(3, 18);
+
+                //Assert
+                Assert.Collection(store.GetStoreItems(),
+                    elem1 =>
+                    {
+                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    },
+                    elem3 =>
+                    {
+                        Assert.Equal(3, elem3.GetProduct().GetId());
+                        Assert.Equal(0, elem3.GetQuantity());
+                    });
+                Assert.Equal(store.FindStoreItemById(3), actual);
+            }
+            catch
+            {
+                throw new XunitException("The item was not removed correctly");
+            }
+        }
+
+        [Fact]
+        public void FindStoreItemById_ShouldReturnCorrectItem()
+        {
+            try
+            {
+                //Assemble
+                Store store = new();
+                var product1 = new Product();
+                product1.SetId(1);
+                var product2 = new Product();
+                product2.SetId(2);
+
+                store.AddStoreItem(product1, 3);
+                var expected = store.AddStoreItem(product2, 5);
+                
+
+                //Act
+                var actual = store.FindStoreItemById(2);
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -224,16 +303,19 @@ namespace CKK.Tests
         }
 
         [Fact]
-        public void GetStoreItem_ShouldReturnNull()
+        public void FindStoreItemById_ShouldReturnNull()
         {
             try
             {
                 //Assemble
                 Store store = new();
+                var product1 = new Product();
+                product1.SetId(100);
                 //Act
+                store.AddStoreItem(product1, 40);
 
                 //Assert
-                Assert.Null(store.GetStoreItem(1));
+                Assert.Null(store.FindStoreItemById(1));
             }
             catch
             {
@@ -242,92 +324,24 @@ namespace CKK.Tests
         }
 
         [Fact]
-        public void FindStoreItemById_ShouldReturnCorrectItem()
+        public void FindStoreItemById_ShouldReturnEmptyStoreItem()
         {
             try
             {
-                //Asemble
+                //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
-                var product2 = new Product();
-                product2.SetId(2);
-                var expected = new Product();
-                expected.SetId(3);
-
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(expected);
+                product1.SetId(100);
                 //Act
-                var actual = store.FindStoreItemById(3);
+                store.AddStoreItem(product1, 40);
+                store.RemoveStoreItem(100, 50);
 
                 //Assert
-                Assert.Equal(expected, actual);
+                Assert.NotNull(store.FindStoreItemById(100));
             }
             catch
             {
-                throw new XunitException("Did not return the correct item.");
-            }
-        }
-
-        [Fact]
-        public void FindStoreItemById_ShouldReturnNullNotFound()
-        {
-            try
-            {
-                //Asemble
-                Store store = new();
-                var product1 = new Product();
-                product1.SetId(1);
-                var product2 = new Product();
-                product2.SetId(2);
-                var expected = new Product();
-                expected.SetId(3);
-
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(expected);
-
-                //Act
-                var shouldBeNull = store.FindStoreItemById(15);
-
-                //Assert
-                Assert.Null(shouldBeNull);
-
-            }
-            catch
-            {
-                throw new XunitException("Method did not return null");
-            }
-        }
-
-        [Fact]
-        public void FindStoreItemById_ShouldReturnFirstIfMultiple()
-        {
-            try
-            {
-                //Asemble
-                Store store = new();
-                var expected = new Product();
-                expected.SetId(1);
-                var product2 = new Product();
-                product2.SetId(1);
-                var product3 = new Product();
-                product3.SetId(1);
-
-                store.AddStoreItem(expected);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
-
-                //Act
-                var actual = store.FindStoreItemById(1);
-
-                //Assert
-                Assert.Equal(expected, actual);
-            }
-            catch
-            {
-                throw new XunitException("Did not return correct Item.");
+                throw new XunitException("Was expecting a quantity 0 on an item and it was not returned correctly");
             }
         }
     }
