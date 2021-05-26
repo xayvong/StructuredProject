@@ -104,12 +104,12 @@ namespace CKK.Tests
                 cart.AddProduct(product1, 3);
 
                 var expected = 6;
-                var actual = cart.GetProductById(1).GetQuantity();
+                var actual = cart.GetProductById(5).GetQuantity();
                 //Assert
 
                 Assert.Collection(cart.GetProducts(),
                     elem1 => {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(5, elem1.GetProduct().GetId());
                         Assert.Equal(expected, elem1.GetQuantity());
                     },
                     elem2 =>
@@ -154,7 +154,7 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(5, elem1.GetProduct().GetId());
                         Assert.Equal(2, elem1.GetQuantity());
                     },
                     elem2 =>
@@ -175,9 +175,8 @@ namespace CKK.Tests
             }
         }
 
-
         [Fact]
-        public void RemoveProduct_ShouldRemoveEmtpyStoreItem()
+        public void RemoveProduct_ShouldRemoveButReturnEmptyProduct()
         {
             try
             {
@@ -203,7 +202,7 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(5, elem1.GetProduct().GetId());
                         Assert.Equal(2, elem1.GetQuantity());
                     },
                     elem2 =>
@@ -211,7 +210,51 @@ namespace CKK.Tests
                         Assert.Equal(2, elem2.GetProduct().GetId());
                         Assert.Equal(3, elem2.GetQuantity());
                     });
-                Assert.Equal(cart.GetProductById(3), actual);
+                Assert.Equal(0, actual.GetQuantity());
+            }
+            catch
+            {
+                throw new XunitException("The item returned had incorrect quantity, or was still in the list.");
+            }
+        }
+
+
+        [Fact]
+        public void RemoveProduct_ShouldRemoveEmtpyProduct()
+        {
+            try
+            {
+                //Assemble
+                Customer cust = new Customer();
+                cust.SetId(1);
+                ShoppingCart cart = new ShoppingCart(cust);
+                var product1 = new Product();
+                product1.SetId(5);
+                var product2 = new Product();
+                product2.SetId(2);
+                var product3 = new Product();
+                product3.SetId(3);
+
+                cart.AddProduct(product1, 2);
+                cart.AddProduct(product2, 3);
+                cart.AddProduct(product3, 8);
+
+                //Act
+                var actual = cart.RemoveProduct(3, 8);
+
+                //Assert
+                Assert.Collection(cart.GetProducts(),
+                    elem1 =>
+                    {
+                        Assert.Equal(5, elem1.GetProduct().GetId());
+                        Assert.Equal(2, elem1.GetQuantity());
+                    },
+                    elem2 =>
+                    {
+                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(3, elem2.GetQuantity());
+                    });
+                Assert.Equal(0,actual.GetQuantity());
             }
             catch
             {
@@ -246,7 +289,7 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(5, elem1.GetProduct().GetId());
                         Assert.Equal(2, elem1.GetQuantity());
                     },
                     elem2 =>
@@ -254,7 +297,7 @@ namespace CKK.Tests
                         Assert.Equal(2, elem2.GetProduct().GetId());
                         Assert.Equal(3, elem2.GetQuantity());
                     });
-                Assert.Equal(cart.GetProductById(3), actual);
+                Assert.Equal(0, actual.GetQuantity());
             }
             catch
             {
@@ -282,7 +325,7 @@ namespace CKK.Tests
 
 
                 //Act
-                var actual = cart.GetProductById(2);
+                var actual = cart.GetProductById(5);
 
                 //Assert
                 Assert.Equal(expected, actual);

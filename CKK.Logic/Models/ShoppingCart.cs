@@ -24,6 +24,10 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
+            if(quantity <= 0)
+            {
+                return null;
+            }
             var existingItem = GetProductById(prod.GetId());
             if(existingItem == null)
             {
@@ -42,7 +46,7 @@ namespace CKK.Logic.Models
             var existingItem = GetProductById(id);
             if (existingItem != null)
             {
-                if (existingItem.GetQuantity() - quantity < 0)
+                if (existingItem.GetQuantity() - quantity <= 0)
                 {
                     existingItem.SetQuantity(0);
                     Products.Remove(existingItem);
@@ -68,7 +72,7 @@ namespace CKK.Logic.Models
             var grandTotal = 0m;
             foreach(var product in Products)
             {
-                grandTotal += product.GetProduct().GetPrice();
+                grandTotal += (product.GetProduct().GetPrice() * product.GetQuantity());
             }
             //Products.ForEach(p => grandTotal += p.GetProduct().GetPrice()); //Make it all one line using inline foreach
             return grandTotal;
