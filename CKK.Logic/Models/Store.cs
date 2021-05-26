@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
 {
-    public class Store
+    public class Store : Entity
     {
-        private int Id;
-        private string Name;
         private List<StoreItem> Items;
 
         public Store()
@@ -17,22 +15,6 @@ namespace CKK.Logic.Models
             Items = new List<StoreItem>();
         }
 
-        public int GetId()
-        {
-            return Id;
-        }
-        public void SetId(int id)
-        {
-            Id = id;
-        }
-        public string GetName()
-        {
-            return Name;
-        }
-        public void SetName(string name)
-        {
-            Name = name;
-        }
         public StoreItem AddStoreItem(Product product, int quantity)
         {
             if(quantity < 0)
