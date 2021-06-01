@@ -124,5 +124,39 @@ namespace CKK.Tests
                 throw new XunitException("ShoppingCartItem does not inherit from InventoryItem");
             }
         }
+
+        [Fact]
+        public void Store_EnsureIsIStore()
+        {
+            //Assemble
+
+            //Act
+
+            //Assert
+            try
+            {
+                Assert.IsAssignableFrom<IStore>(new Store());
+            } catch
+            {
+                throw new XunitException("Store does not inherit from IStore");
+            }
+        }
+
+        [Fact]
+        public void ShoppingCart_EnsureIsIShoppingCart()
+        {
+            //Assemble
+
+            //Act
+
+            //Assert
+            try
+            {
+                Assert.IsAssignableFrom<IShoppingCart>(new ShoppingCart(new Customer()));
+            }catch
+            {
+                throw new XunitException("ShoppingCart does not inherit from IShoppingCart");
+            }
+        }
     }
 }
