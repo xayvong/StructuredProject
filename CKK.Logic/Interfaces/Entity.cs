@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CKK.Logic.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,14 @@ namespace CKK.Logic.Interfaces
 
         public void SetId(int id)
         {
-            Id = id;
+            if (id > 0)
+            {
+                Id = id;
+            } else
+            {
+                throw new InvalidIdException();
+            }
+
         }
 
         public string GetName()

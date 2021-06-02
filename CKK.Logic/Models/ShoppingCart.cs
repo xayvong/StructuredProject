@@ -1,4 +1,5 @@
-﻿using CKK.Logic.Interfaces;
+﻿using CKK.Logic.Exceptions;
+using CKK.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace CKK.Logic.Models
         {
             if(quantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException();
             }
             var existingItem = GetProductById(prod.GetId());
             if(existingItem == null)
@@ -36,7 +37,7 @@ namespace CKK.Logic.Models
                 Products.Add(newItem);
                 return newItem;
             } else
-            {
+            { 
                 existingItem.SetQuantity(existingItem.GetQuantity() + quantity);
                 return existingItem;
             }
@@ -44,6 +45,10 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem RemoveProduct(int id, int quantity)
         {
+            if(quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             var existingItem = GetProductById(id);
             if (existingItem != null)
             {
@@ -60,12 +65,16 @@ namespace CKK.Logic.Models
             }
             else
             {
-                return null;
+                throw new ProductDoesNotExistException();
             }
         }
         public ShoppingCartItem GetProductById(int id)
         {
-            return Products.FirstOrDefault(p => p.GetProduct().GetId() == id);
+            if(id < 0)
+            {
+                throw new InvalidIdException();
+            }
+            return Products.FirstOrDefault(p => p.GetProduct().GetId() == id);            
         }
 
         public decimal GetTotal()

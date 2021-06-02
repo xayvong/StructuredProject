@@ -55,12 +55,15 @@ namespace CKK.Tests
             {
                 //Assemble
                 Store store = new();
-                var expected = store.AddStoreItem(new Product(), -2);
+                try
+                {
+                    var expected = store.AddStoreItem(new Product(), -2);
+                }
+                catch { }
                 //Act
 
                 //Assert
                 //I know I am testing two things, but it is really the same thing?
-                Assert.Null(expected);
                 Assert.Empty(store.GetStoreItems());
             }
             catch

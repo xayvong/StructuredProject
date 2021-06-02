@@ -17,7 +17,13 @@ namespace CKK.Logic.Models
         }
         public void SetPrice(decimal price)
         {
-            Price = price;
+            if (price > 0)
+            {
+                Price = price;
+            }else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
