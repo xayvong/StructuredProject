@@ -17,7 +17,7 @@ namespace CKK.Logic.Models
         }
         public void SetPrice(decimal price)
         {
-            if (price > 0)
+            if (price >= 0)
             {
                 Price = price;
             }else

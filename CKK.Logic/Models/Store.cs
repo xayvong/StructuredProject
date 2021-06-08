@@ -11,7 +11,7 @@ namespace CKK.Logic.Models
     public class Store : Entity, IStore
     {
         private List<StoreItem> Items;
-
+        private static int IdCounter = 0;
         public Store()
         {
             Items = new List<StoreItem>();
@@ -22,6 +22,10 @@ namespace CKK.Logic.Models
             if(quantity < 0)
             {
                 throw new InventoryItemStockTooLowException();
+            }
+            if(product.GetId() == 0)
+            {
+                product.SetId(++IdCounter);
             }
             var existingItem = FindStoreItemById(product.GetId());
             if(existingItem == null)
@@ -58,6 +62,16 @@ namespace CKK.Logic.Models
             {
                 throw new ProductDoesNotExistException();
             }
+        }
+
+        public StoreItem DeleteStoreItem(int id)
+        {
+            var existingItem = FindStoreItemById(id);
+            if(existingItem != null)
+            {
+                Items.Remove(existingItem);
+            }
+            return existingItem;
         }
 
         public StoreItem FindStoreItemById(int id)

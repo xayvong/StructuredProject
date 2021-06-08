@@ -19,7 +19,7 @@ namespace CKK.Logic.Interfaces
 
         public void SetId(int id)
         {
-            if (id > 0)
+            if (id >= 0)
             {
                 Id = id;
             } else

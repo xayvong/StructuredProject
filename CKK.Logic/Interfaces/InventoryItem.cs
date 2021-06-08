@@ -38,5 +38,6 @@ namespace CKK.Logic.Interfaces
                 throw new InventoryItemStockTooLowException();
             }
         }
+        public override string ToString() => $"#{Product.GetId()}  {Product.GetName()}:  {Quantity}";
     }
 }
