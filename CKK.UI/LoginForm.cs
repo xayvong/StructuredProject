@@ -25,8 +25,9 @@ namespace CKK.UI
 
         private void TextBox_Leave(object sender, EventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-            textBox.TextAlign = HorizontalAlignment.Center;
+           TextBox textBox = (TextBox)sender;
+           textBox.TextAlign = HorizontalAlignment.Center;
+            
         }
 
         private void LoginButton_Click(object sender, EventArgs e)

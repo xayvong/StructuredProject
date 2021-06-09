@@ -14,7 +14,7 @@ namespace CKK.UI
 {
     public partial class InventoryManagementForm : Form
     {
-        IStore Store;
+        private IStore Store;
 
         public InventoryManagementForm(IStore store)
         {
@@ -26,12 +26,12 @@ namespace CKK.UI
         private void RefreshList()
         {
             InventoryList.Items.Clear();
-            foreach(var item in Store.GetStoreItems())
+            foreach (var item in Store.GetStoreItems())
             {
                 InventoryList.Items.Add(item);
-                
             }
         }
+
         private void SearchButton_Click(object sender, EventArgs e)
         {
 

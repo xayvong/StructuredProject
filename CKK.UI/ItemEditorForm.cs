@@ -18,7 +18,6 @@ namespace CKK.UI
         public ItemEditorForm(InventoryItem item)
         {
             Item = item;
-            DialogResult = DialogResult.None;
             InitializeComponent();
             SetValues();           
         }

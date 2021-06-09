@@ -21,10 +21,7 @@ namespace CKK.UI
             LoginForm loginForm = new LoginForm();
             Application.Run(loginForm);
             Store store = new Store();
-            
-            store.AddStoreItem(new Product(), 1);
-            store.AddStoreItem(new Product(), 2);
-            store.AddStoreItem(new Product(), 3);
+            //Only run the Management if the login was successful. Otherwise do something else (nothing right now, but maybe something else later?)
             if(loginForm.DialogResult == DialogResult.OK)
             {
                 Application.Run(new InventoryManagementForm(store));
