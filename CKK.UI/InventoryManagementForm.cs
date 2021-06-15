@@ -1,5 +1,6 @@
 ﻿using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
+using CKK.Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,6 +60,10 @@ namespace CKK.UI
                 ItemEditorForm editor = new(selected);
                 editor.ShowDialog();
                 RefreshList();
+                if(Store is ISavable store)
+                {
+                    store.Save();
+                }
             }
             
         }

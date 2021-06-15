@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
 {
+    [Serializable]
     public class ShoppingCartItem : InventoryItem
     {
         public ShoppingCartItem(Product product, int quantity)
@@ -14,6 +15,7 @@ namespace CKK.Logic.Models
             SetProduct(product);
             SetQuantity(quantity);
         }
+
         public decimal GetTotal()
         {
             return GetProduct().GetPrice() * GetQuantity();

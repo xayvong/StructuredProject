@@ -66,6 +66,7 @@ namespace CKK.Logic.Models
 
         public StoreItem DeleteStoreItem(int id)
         {
+
             var existingItem = FindStoreItemById(id);
             if(existingItem != null)
             {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
 {
+    [Serializable]
     public class ShoppingCart : IShoppingCart
     {
         private Customer Customer;

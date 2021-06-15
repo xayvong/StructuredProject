@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Interfaces
 {
+    [Serializable]
     public abstract class InventoryItem
     {
         private Product Product;
@@ -38,6 +39,6 @@ namespace CKK.Logic.Interfaces
                 throw new InventoryItemStockTooLowException();
             }
         }
-        public override string ToString() => $"#{Product.GetId()}  {Product.GetName()}:  {Quantity}";
+        public override string ToString() => $"#{Product.GetId(),-4}  {Product.GetName(),-30} {$"Quantity: {Quantity:N0}",-13}";
     }
 }

@@ -83,11 +83,12 @@ namespace CKK.UI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InventoryList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.InventoryList.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.InventoryList.HorizontalScrollbar = true;
-            this.InventoryList.ItemHeight = 15;
+            this.InventoryList.ItemHeight = 18;
             this.InventoryList.Location = new System.Drawing.Point(48, 104);
             this.InventoryList.Name = "InventoryList";
-            this.InventoryList.Size = new System.Drawing.Size(674, 214);
+            this.InventoryList.Size = new System.Drawing.Size(674, 202);
             this.InventoryList.TabIndex = 4;
             this.InventoryList.DoubleClick += new System.EventHandler(this.EditButton_Click);
             // 

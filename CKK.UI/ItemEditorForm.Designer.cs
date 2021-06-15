@@ -161,9 +161,9 @@ namespace CKK.UI
             this.QuantityTextBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.QuantityTextBox.Location = new System.Drawing.Point(98, 96);
             this.QuantityTextBox.Maximum = new decimal(new int[] {
-            1241513983,
-            370409800,
-            542101,
+            2147483647,
+            0,
+            0,
             0});
             this.QuantityTextBox.Name = "QuantityTextBox";
             this.QuantityTextBox.Size = new System.Drawing.Size(250, 25);
