@@ -17,7 +17,7 @@ namespace CKK.Persistance.Models
     public class FileStore : IStore, ILoadable, ISavable
     {
         private List<StoreItem> Items;
-        public static readonly string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
+        private readonly string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
         private int IdCounter = 0;
 
         public FileStore()
@@ -165,6 +165,25 @@ namespace CKK.Persistance.Models
         private void CreatePath()
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance");
+        }
+
+        public List<StoreItem> GetProductsByName(string name, bool reverse)
+        {
+            if (!reverse)
+            {
+                return GetProductsByName(name);
+            }
+            else //if it is reverse
+            {
+                var results = GetProductsByName(name);
+                results.Reverse();
+                return results;
+            }
+        }
+
+        public List<StoreItem> GetProductsByName(string name)
+        {
+            return new List<StoreItem>(Items.Where(i => i.GetProduct().GetName().ToLower().Contains(name.ToLower())));
         }
     }
 }

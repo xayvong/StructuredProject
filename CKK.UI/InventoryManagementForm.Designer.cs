@@ -62,6 +62,7 @@ namespace CKK.UI
             this.SearchTextBox.PlaceholderText = "Search";
             this.SearchTextBox.Size = new System.Drawing.Size(631, 34);
             this.SearchTextBox.TabIndex = 1;
+            this.SearchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchTextBox_KeyDown);
             // 
             // SearchButton
             // 

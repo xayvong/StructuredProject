@@ -30,12 +30,10 @@ namespace CKK.UI
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label1;
-            System.Windows.Forms.TextBox UsernameTextBox;
-            System.Windows.Forms.TextBox PasswordTextBox;
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.LoginButton = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
-            UsernameTextBox = new System.Windows.Forms.TextBox();
-            PasswordTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -52,31 +50,31 @@ namespace CKK.UI
             // 
             // UsernameTextBox
             // 
-            UsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.UsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            UsernameTextBox.Location = new System.Drawing.Point(148, 143);
-            UsernameTextBox.Name = "UsernameTextBox";
-            UsernameTextBox.PlaceholderText = "Username";
-            UsernameTextBox.Size = new System.Drawing.Size(351, 43);
-            UsernameTextBox.TabIndex = 1;
-            UsernameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            UsernameTextBox.Enter += new System.EventHandler(this.TextBox_Enter);
-            UsernameTextBox.Leave += new System.EventHandler(this.TextBox_Leave);
+            this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameTextBox.Location = new System.Drawing.Point(148, 143);
+            this.UsernameTextBox.Name = "UsernameTextBox";
+            this.UsernameTextBox.PlaceholderText = "Username";
+            this.UsernameTextBox.Size = new System.Drawing.Size(351, 43);
+            this.UsernameTextBox.TabIndex = 1;
+            this.UsernameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.UsernameTextBox.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.UsernameTextBox.Leave += new System.EventHandler(this.TextBox_Leave);
             // 
             // PasswordTextBox
             // 
-            PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            PasswordTextBox.Location = new System.Drawing.Point(148, 195);
-            PasswordTextBox.Name = "PasswordTextBox";
-            PasswordTextBox.PlaceholderText = "Password";
-            PasswordTextBox.Size = new System.Drawing.Size(351, 43);
-            PasswordTextBox.TabIndex = 2;
-            PasswordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            PasswordTextBox.Enter += new System.EventHandler(this.TextBox_Enter);
-            PasswordTextBox.Leave += new System.EventHandler(this.TextBox_Leave);
+            this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PasswordTextBox.Location = new System.Drawing.Point(148, 195);
+            this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.PlaceholderText = "Password";
+            this.PasswordTextBox.Size = new System.Drawing.Size(351, 43);
+            this.PasswordTextBox.TabIndex = 2;
+            this.PasswordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PasswordTextBox.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.PasswordTextBox.Leave += new System.EventHandler(this.TextBox_Leave);
             // 
             // LoginButton
             // 
@@ -101,8 +99,8 @@ namespace CKK.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 411);
             this.Controls.Add(this.LoginButton);
-            this.Controls.Add(PasswordTextBox);
-            this.Controls.Add(UsernameTextBox);
+            this.Controls.Add(this.PasswordTextBox);
+            this.Controls.Add(this.UsernameTextBox);
             this.Controls.Add(label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -120,6 +118,8 @@ namespace CKK.UI
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.TextBox UsernameTextBox;
+        private System.Windows.Forms.TextBox PasswordTextBox;
     }
 }
 
