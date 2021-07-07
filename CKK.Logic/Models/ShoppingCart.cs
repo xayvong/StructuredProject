@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
@@ -11,8 +12,10 @@ namespace CKK.Logic.Models
     [Serializable]
     public class ShoppingCart : IShoppingCart
     {
-        private Customer Customer;
-        private List<ShoppingCartItem> Products;
+        
+        public Customer Customer { get; set; }
+        
+        public List<ShoppingCartItem> Products { get; set; }
 
         public ShoppingCart(Customer customer)
         {

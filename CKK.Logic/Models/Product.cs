@@ -10,7 +10,7 @@ namespace CKK.Logic.Models
     [Serializable]
     public class Product : Entity
     {
-        private decimal Price;
+        public decimal Price { get; set; }
 
         public decimal GetPrice()
         {

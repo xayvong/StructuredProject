@@ -166,19 +166,14 @@ namespace CKK.Persistance.Models
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance");
         }
-
-        public List<StoreItem> GetProductsByName(string name, bool reverse)
+        public List<StoreItem> GetProductsByQuantity()
         {
-            if (!reverse)
-            {
-                return GetProductsByName(name);
-            }
-            else //if it is reverse
-            {
-                var results = GetProductsByName(name);
-                results.Reverse();
-                return results;
-            }
+            return new List<StoreItem>(Items.OrderByDescending(t => t.GetQuantity()));
+        }
+
+        public List<StoreItem> GetProductsByPrice()
+        {
+            return new List<StoreItem>(Items.OrderByDescending(t => t.GetProduct().GetPrice()));
         }
 
         public List<StoreItem> GetProductsByName(string name)

@@ -10,7 +10,7 @@ namespace CKK.Logic.Models
     [Serializable]
     public class Customer : Entity
     {
-        private string Address;
+        public string Address { get; set; }
 
         public string GetAddress()
         {

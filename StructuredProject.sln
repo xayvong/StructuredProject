@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.Tests", "CKK.Tests\CKK.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.UI", "CKK.UI\CKK.UI.csproj", "{46C08D90-3D34-433A-802E-BD0599E01E4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.Persistance", "CKK.Persistance\CKK.Persistance.csproj", "{6376D9E9-CA43-4ACB-8F80-7759A3587603}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.Persistance", "CKK.Persistance\CKK.Persistance.csproj", "{6376D9E9-CA43-4ACB-8F80-7759A3587603}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.Server", "CKK.Server\CKK.Server.csproj", "{D2948079-9C84-4CA1-8A29-181209700C5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.MockClient", "CKK.MockClient\CKK.MockClient.csproj", "{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{6376D9E9-CA43-4ACB-8F80-7759A3587603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6376D9E9-CA43-4ACB-8F80-7759A3587603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6376D9E9-CA43-4ACB-8F80-7759A3587603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2948079-9C84-4CA1-8A29-181209700C5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2948079-9C84-4CA1-8A29-181209700C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2948079-9C84-4CA1-8A29-181209700C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2948079-9C84-4CA1-8A29-181209700C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

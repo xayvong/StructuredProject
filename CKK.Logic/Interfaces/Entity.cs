@@ -10,8 +10,8 @@ namespace CKK.Logic.Interfaces
     [Serializable]
     public abstract class Entity
     {
-        private int Id;
-        private string Name;
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public int GetId()
         {
