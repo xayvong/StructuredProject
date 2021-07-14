@@ -10,7 +10,25 @@ namespace CKK.Logic.Interfaces
     [Serializable]
     public abstract class Entity
     {
-        public int Id { get; set; }
+        private int id;
+        private int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    id = value;
+                }
+                else
+                {
+                    throw new InvalidIdException();
+                }
+            }
+        }
         public string Name { get; set; }
 
         public int GetId()
@@ -20,14 +38,7 @@ namespace CKK.Logic.Interfaces
 
         public void SetId(int id)
         {
-            if (id >= 0)
-            {
-                Id = id;
-            } else
-            {
-                throw new InvalidIdException();
-            }
-
+            Id = id;
         }
 
         public string GetName()

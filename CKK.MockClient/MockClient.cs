@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace CKK.MockClient
 {
-    class Program
+    class MockClient
     {
         private static IShoppingCart cart = new ShoppingCart(new Customer());
         private static IStore store = new FileStore();

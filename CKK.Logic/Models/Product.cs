@@ -10,7 +10,23 @@ namespace CKK.Logic.Models
     [Serializable]
     public class Product : Entity
     {
-        public decimal Price { get; set; }
+        private decimal price;
+        public decimal Price {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    price = value;
+                } else
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         public decimal GetPrice()
         {
@@ -18,13 +34,7 @@ namespace CKK.Logic.Models
         }
         public void SetPrice(decimal price)
         {
-            if (price >= 0)
-            {
-                Price = price;
-            }else
-            {
-                throw new ArgumentOutOfRangeException();
-            }
+            Price = price;
         }
     }
 }
