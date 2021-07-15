@@ -23,11 +23,11 @@ namespace CKK.Logic.Models
             {
                 throw new InventoryItemStockTooLowException();
             }
-            if(product.GetId() == 0)
+            if(product.Id == 0)
             {
-                product.SetId(++IdCounter);
+                product.Id = (++IdCounter);
             }
-            var existingItem = FindStoreItemById(product.GetId());
+            var existingItem = FindStoreItemById(product.Id);
             if(existingItem == null)
             {
                 StoreItem newItem = new StoreItem(product, quantity);
@@ -35,7 +35,7 @@ namespace CKK.Logic.Models
                 return newItem;
             }else
             {
-                existingItem.SetQuantity(existingItem.GetQuantity() + quantity);
+                existingItem.Quantity = (existingItem.Quantity + quantity);
                 return existingItem;
             }
         }
@@ -49,13 +49,13 @@ namespace CKK.Logic.Models
             var existingItem = FindStoreItemById(id);
             if(existingItem != null)
             {
-                if (existingItem.GetQuantity() - quantity < 0)
+                if (existingItem.Quantity - quantity < 0)
                 {
-                    existingItem.SetQuantity(0);
+                    existingItem.Quantity = (0);
                 }
                 else
                 {
-                    existingItem.SetQuantity(existingItem.GetQuantity() - quantity);
+                    existingItem.Quantity = (existingItem.Quantity - quantity);
                 }
                 return existingItem;
             }else
@@ -81,7 +81,7 @@ namespace CKK.Logic.Models
             {
                 throw new InvalidIdException();
             }
-            return Items.FirstOrDefault(p => p.GetProduct().GetId() == id);            
+            return Items.FirstOrDefault(p => p.Product.Id == id);            
         }
 
         public List<StoreItem> GetStoreItems()
@@ -91,17 +91,17 @@ namespace CKK.Logic.Models
 
         public List<StoreItem> GetProductsByQuantity()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.GetQuantity()));
+            return new List<StoreItem>(Items.OrderByDescending(t => t.Quantity));
         }
 
         public List<StoreItem> GetProductsByPrice()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.GetProduct().GetPrice()));
+            return new List<StoreItem>(Items.OrderByDescending(t => t.Product.Price));
         }
 
         public List<StoreItem> GetProductsByName(string name)
         {
-            return new List<StoreItem>(Items.Where(i => i.GetProduct().GetName().ToLower().Contains(name)));
+            return new List<StoreItem>(Items.Where(i => i.Product.Name.ToLower().Contains(name)));
         }
     }
 }

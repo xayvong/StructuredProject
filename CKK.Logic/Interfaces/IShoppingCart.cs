@@ -9,6 +9,7 @@ namespace CKK.Logic.Interfaces
 {
     public interface IShoppingCart
     {
+        public Customer Customer { get; set; }
         public int GetCustomerId();
         public ShoppingCartItem AddProduct(Product prod, int quantity);
         public ShoppingCartItem RemoveProduct(int id, int quantity);

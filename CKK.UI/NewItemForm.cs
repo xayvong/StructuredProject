@@ -23,8 +23,8 @@ namespace CKK.UI
         private void CreateButton_Click(object sender, EventArgs e)
         {
             var prod = new Product();
-            prod.SetName(NameTextBox.Text);
-            prod.SetPrice(PriceTextBox.Value);
+            prod.Name =(NameTextBox.Text);
+            prod.Price = (PriceTextBox.Value);
             Item = new StoreItem(prod, (int)QuantityTextBox.Value);
             DialogResult = DialogResult.OK;
             Close();

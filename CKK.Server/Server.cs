@@ -12,7 +12,7 @@ namespace CKK.Server
 {
     class Server
     {
-        private static Queue<IShoppingCart> ShoppingQueue = new();
+        private static Queue<OrderSummary> ShoppingQueue = new();
         public static void StartListening()
         {
             byte[] buffer = new byte[8192];
@@ -33,7 +33,7 @@ namespace CKK.Server
                 {
                     Console.WriteLine($"Waiting for a connection on {iPAddress}:11000...");
                     Socket handler = listenerSocket.Accept();
-                    IShoppingCart cart = null;
+                    OrderSummary order = null;
                     byte[] msg = null;
                     while(true)
                     {
@@ -42,22 +42,30 @@ namespace CKK.Server
                         try
                         {
                             var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
-                            cart = json.ToObject<ShoppingCart>();
-                            msg = Encoding.Default.GetBytes($"Successfully added to the Queue. There are :'{ShoppingQueue.Count}' carts ahead of you.");
+                            var cart = json.ToObject<ShoppingCart>();
+                            order = new OrderSummary(cart);
+                            msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are :'{ShoppingQueue.Count}' orders ahead of you.");
                         }
-                        catch(Exception e)
+                        catch(Exception)
                         {
-                            Console.WriteLine("Object failed to deserialize.");
-                            msg = Encoding.Default.GetBytes("Object Failed to be processed.");
+                            try
+                            {
+                                var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
+                                order = json.ToObject<OrderSummary>();
+                                msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are : '{ShoppingQueue.Count}' orders ahead of you.");
+                            }catch (Exception)
+                            {
+                                Console.WriteLine("Object failed to deserialize.");
+                                msg = Encoding.Default.GetBytes("Object Failed to be processed.");
+                            }                            
                         }
                         break;
                     }
-                    if (cart != null)
+                    if (order != null)
                     {
-                        ShoppingQueue.Enqueue(cart);
-                        Console.WriteLine($"Shopping Cart Recieved!");
-                        Console.WriteLine($"Here is the current queue for the shopping carts:");
-                        Console.WriteLine($"There are a total of {ShoppingQueue.Count} Carts in queue. ");
+                        ShoppingQueue.Enqueue(order);
+                        Console.WriteLine($"Order Recieved!");
+                        Console.WriteLine($"There are a total of {ShoppingQueue.Count} Orders in queue. ");
                     }
                     else
                     {

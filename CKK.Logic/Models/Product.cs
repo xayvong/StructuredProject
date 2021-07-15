@@ -27,14 +27,5 @@ namespace CKK.Logic.Models
                 }
             }
         }
-
-        public decimal GetPrice()
-        {
-            return Price;
-        }
-        public void SetPrice(decimal price)
-        {
-            Price = price;
-        }
     }
 }

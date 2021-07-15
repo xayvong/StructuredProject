@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 
 namespace CKK.MockClient
 {
@@ -99,7 +100,7 @@ namespace CKK.MockClient
             Console.WriteLine("Which Item would you like to add?");
             var input = int.Parse(Console.ReadLine());
             var selectedItem = store.GetStoreItems()[input];
-            cart.AddProduct(selectedItem.GetProduct(), 1);
+            cart.AddProduct(selectedItem.Product, 1);
             Console.Clear();
             Console.WriteLine("Item Added.");
         }
@@ -116,7 +117,7 @@ namespace CKK.MockClient
             Console.WriteLine("------------------");
             Console.WriteLine("Which one would you like to remove?");
             var input = int.Parse(Console.ReadLine());
-            cart.RemoveProduct(cart.GetProducts()[input].GetProduct().GetId(), 1);
+            cart.RemoveProduct(cart.GetProducts()[input].Product.Id, 1);
         }
 
 
@@ -137,12 +138,14 @@ namespace CKK.MockClient
                 {
                     senderSocket.Connect(remoteEndPoint);
                     Console.WriteLine($"Connected to Server...");
-                    byte[] msg = JsonSerializer.SerializeToUtf8Bytes<object>(cart);
+                    OrderSummary order = new OrderSummary(cart);
+                    byte[] msg = JsonSerializer.SerializeToUtf8Bytes<object>(order);
                     int bytesSent = senderSocket.Send(msg);
 
                     int bytesRec = senderSocket.Receive(buffer);
                     //Write the message that is sent from the server.
-                    Console.WriteLine(Encoding.ASCII.GetString(buffer));                    
+                    Console.WriteLine(Encoding.ASCII.GetString(buffer).Substring(0,100));
+                    Thread.Sleep(5000);
                 } catch (ArgumentNullException ane)
                 {
                     Console.WriteLine($"ArgumentNullException : {ane}");

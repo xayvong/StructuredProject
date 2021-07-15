@@ -30,25 +30,6 @@ namespace CKK.Logic.Interfaces
             }
         }
 
-        public Product GetProduct()
-        {
-            return Product;
-        }
-
-        public void SetProduct(Product product)
-        {
-            Product = product;
-        }
-
-        public int GetQuantity()
-        {
-            return Quantity;
-        }
-
-        public void SetQuantity(int quantity)
-        {
-            Quantity = quantity;
-        }
-        public override string ToString() => $"#{Product.GetId(),-4}  {Product.GetName(),-30} {$"Quantity: {Quantity:N0}",-13}";
+        public override string ToString() => $"#{Product.Id,-4}  {Product.Name,-30} {$"Quantity: {Quantity:N0}",-13}";
     }
 }

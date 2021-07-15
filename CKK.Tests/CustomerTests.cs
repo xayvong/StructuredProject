@@ -15,8 +15,8 @@ namespace CKK.Tests
                 Customer customer = new Customer();
                 int expected = 12345;
                 //Act
-                customer.SetId(expected);
-                int actual = customer.GetId();
+                customer.Id = (expected);
+                int actual = customer.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }
@@ -36,8 +36,8 @@ namespace CKK.Tests
                 var expected = "John Doe";
 
                 //Act
-                customer.SetName(expected);
-                var actual = customer.GetName();
+                customer.Name =(expected);
+                var actual = customer.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -58,8 +58,8 @@ namespace CKK.Tests
                 var expected = "1234 Number Street";
 
                 //Act
-                customer.SetAddress(expected);
-                var actual = customer.GetAddress();
+                customer.Address = (expected);
+                var actual = customer.Address;
 
                 //Assert
                 Assert.Equal(expected, actual);

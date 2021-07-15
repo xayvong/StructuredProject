@@ -53,15 +53,15 @@ namespace CKK
             //A nullPointerException
             //if (store.GetStoreItem(1) != null)
             //{
-           // Console.WriteLine($"1. {store.GetStoreItem(1).GetName()}: {store.GetStoreItem(1).GetPrice():C}");
+           // Console.WriteLine($"1. {store.GetStoreItem(1).Name}: {store.GetStoreItem(1).Price:C}");
             //}
            // if (store.GetStoreItem(2) != null)
            // {
-           //     Console.WriteLine($"2. {store.GetStoreItem(2).GetName()}: {store.GetStoreItem(2).GetPrice():C}");
+           //     Console.WriteLine($"2. {store.GetStoreItem(2).Name}: {store.GetStoreItem(2).Price:C}");
           //  }
           //  if (store.GetStoreItem(3) != null)
           //  {
-          //      Console.WriteLine($"3. {store.GetStoreItem(3).GetName()} : {store.GetStoreItem(3).GetPrice():C}");
+          //      Console.WriteLine($"3. {store.GetStoreItem(3).Name} : {store.GetStoreItem(3).Price:C}");
           //  }
           //  Console.WriteLine("------------------");
         }
@@ -89,9 +89,9 @@ namespace CKK
                 }
             }
             Product createdProduct = new Product();
-            createdProduct.SetId(++count);
-            createdProduct.SetName(name);
-            createdProduct.SetPrice(price);
+            createdProduct.Id = (++count);
+            createdProduct.Name =(name);
+            createdProduct.Price = (price);
            // store.AddStoreItem(createdProduct);
             Console.WriteLine("Store Product added.");
         }

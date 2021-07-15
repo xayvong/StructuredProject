@@ -11,7 +11,7 @@ namespace CKK.Logic.Interfaces
     public abstract class Entity
     {
         private int id;
-        private int Id
+        public int Id
         {
             get
             {
@@ -30,24 +30,5 @@ namespace CKK.Logic.Interfaces
             }
         }
         public string Name { get; set; }
-
-        public int GetId()
-        {
-            return Id;
-        }
-
-        public void SetId(int id)
-        {
-            Id = id;
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-        public void SetName(string name)
-        {
-            Name = name;
-        }
     }
 }

@@ -11,14 +11,5 @@ namespace CKK.Logic.Models
     public class Customer : Entity
     {
         public string Address { get; set; }
-
-        public string GetAddress()
-        {
-            return Address;
-        }
-        public void SetAddress(string address)
-        {
-            Address = address;
-        }
     }
 }

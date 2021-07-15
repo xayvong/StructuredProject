@@ -13,10 +13,10 @@ namespace CKK.Tests
             {
                 //Assemble
                 Product testProduct = new Product();
-                testProduct.SetId(1);
+                testProduct.Id = (1);
                 var cartItem = new StoreItem(testProduct, 1);
                 //Act
-                var actual = cartItem.GetProduct();
+                var actual = cartItem.Product;
                 //Assert
                 Assert.Equal(testProduct, actual);
             }
@@ -33,11 +33,11 @@ namespace CKK.Tests
             {
                 //Assemble
                 Product testProduct = new Product();
-                testProduct.SetId(2);
+                testProduct.Id = (2);
                 var expected = 24;
                 var cartItem = new StoreItem(testProduct, expected);
                 //Act
-                var actual = cartItem.GetQuantity();
+                var actual = cartItem.Quantity;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -58,8 +58,8 @@ namespace CKK.Tests
                 var expected = new Product();
                 var cartItem = new StoreItem(testProduct, 1);
                 //Act
-                cartItem.SetProduct(expected);
-                var actual = cartItem.GetProduct();
+                cartItem.Product = (expected);
+                var actual = cartItem.Product;
                 //Assert
                 Assert.Equal(expected, actual);
             }
@@ -78,8 +78,8 @@ namespace CKK.Tests
                 var expected = 10;
                 var cartItem = new StoreItem(new Product(), 2);
                 //Act
-                cartItem.SetQuantity(expected);
-                var actual = cartItem.GetQuantity();
+                cartItem.Quantity = (expected);
+                var actual = cartItem.Quantity;
 
                 //Assert
                 Assert.Equal(expected, actual);

@@ -23,11 +23,11 @@ namespace CKK.Tests
                 //Act
 
                 //Assert
-                Assert.Throws<InvalidIdException>(() => entity.SetId(-1));
+                Assert.Throws<InvalidIdException>(() => entity.Id = (-1));
             }
             catch
             {
-                throw new XunitException("The SetId method did not throw an exception when it should have.");
+                throw new XunitException("The Id =  method did not throw an exception when it should have.");
             }
         }
 
@@ -41,11 +41,11 @@ namespace CKK.Tests
                 //Act
 
                 //Assert
-                Assert.Throws<InventoryItemStockTooLowException>(() => item.SetQuantity(-1));
+                Assert.Throws<InventoryItemStockTooLowException>(() => item.Quantity = (-1));
             }
             catch
             {
-                throw new XunitException("The SetQuantity method did not throw an exception when it should have.");
+                throw new XunitException("The Quantity =  method did not throw an exception when it should have.");
             }
         }
 
@@ -59,11 +59,11 @@ namespace CKK.Tests
                 //Act
 
                 //Assert
-                Assert.Throws<ArgumentOutOfRangeException>(() => prod.SetPrice(-10.509m));
+                Assert.Throws<ArgumentOutOfRangeException>(() => prod.Price = (-10.509m));
             }
             catch
             {
-                throw new XunitException("The SetPrice method did not throw an exception when it should have.");
+                throw new XunitException("The Price =  method did not throw an exception when it should have.");
             }
         }
 
@@ -150,7 +150,7 @@ namespace CKK.Tests
                 Store s = new();
                 //Act
                 Product p = new();
-                p.SetId(1);
+                p.Id = 1;
                 s.AddStoreItem(p, 14);
                 //Assert
                 Assert.Throws<ArgumentOutOfRangeException>(() => s.RemoveStoreItem(1, -1));
@@ -170,7 +170,7 @@ namespace CKK.Tests
                 ShoppingCart cart = new ShoppingCart(new Customer());
                 //Act
                 Product p = new();
-                p.SetId(1);
+                p.Id = 1;
                 cart.AddProduct(p, 2);
 
                 //Assert

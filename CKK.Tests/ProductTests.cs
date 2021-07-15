@@ -15,8 +15,8 @@ namespace CKK.Tests
                 Product product = new Product();
                 int expected = 12345;
                 //Act
-                product.SetId(expected);
-                int actual = product.GetId();
+                product.Id = (expected);
+                int actual = product.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }
@@ -36,8 +36,8 @@ namespace CKK.Tests
                 var expected = "John Doe";
 
                 //Act
-                product.SetName(expected);
-                var actual = product.GetName();
+                product.Name =(expected);
+                var actual = product.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -58,8 +58,8 @@ namespace CKK.Tests
                 var expected = 1234.56754m;
 
                 //Act
-                product.SetPrice(expected);
-                var actual = product.GetPrice();
+                product.Price = (expected);
+                var actual = product.Price;
 
                 //Assert
                 Assert.Equal(expected, actual);

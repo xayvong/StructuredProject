@@ -34,11 +34,11 @@ namespace CKK.Persistance.Models
             {
                 throw new InventoryItemStockTooLowException();
             }
-            if (product.GetId() == 0)
+            if (product.Id == 0)
             {
-                product.SetId(++IdCounter);
+                product.Id = (++IdCounter);
             }
-            var existingItem = FindStoreItemById(product.GetId());
+            var existingItem = FindStoreItemById(product.Id);
             if (existingItem == null)
             {
                 StoreItem newItem = new StoreItem(product, quantity);
@@ -48,7 +48,7 @@ namespace CKK.Persistance.Models
             }
             else
             {
-                existingItem.SetQuantity(existingItem.GetQuantity() + quantity);
+                existingItem.Quantity = (existingItem.Quantity + quantity);
                 Save();
                 return existingItem;
             }
@@ -71,7 +71,7 @@ namespace CKK.Persistance.Models
             {
                 throw new InvalidIdException();
             }
-            return Items.FirstOrDefault(p => p.GetProduct().GetId() == id);
+            return Items.FirstOrDefault(p => p.Product.Id == id);
         }
 
         public List<StoreItem> GetStoreItems()
@@ -90,9 +90,9 @@ namespace CKK.Persistance.Models
                 IdCounter = Items.Count + 1;
                 foreach (var item in Items)
                 {
-                    if (item.GetProduct().GetId() == 0)
+                    if (item.Product.Id == 0)
                     {
-                        item.GetProduct().SetId(++IdCounter);
+                        item.Product.Id = (++IdCounter);
                     }
                 }
 
@@ -101,7 +101,7 @@ namespace CKK.Persistance.Models
             {
                 throw new IOException("There has been an error opening the file to load data", e);
             }
-            catch (SerializationException ex)
+            catch (SerializationException)
             {
                 Items = new();
                 //throw new SerializationException("There was a problem deserializing the data: " + ex.Message, ex);
@@ -123,13 +123,13 @@ namespace CKK.Persistance.Models
             var existingItem = FindStoreItemById(id);
             if (existingItem != null)
             {
-                if (existingItem.GetQuantity() - quantity < 0)
+                if (existingItem.Quantity - quantity < 0)
                 {
-                    existingItem.SetQuantity(0);
+                    existingItem.Quantity = (0);
                 }
                 else
                 {
-                    existingItem.SetQuantity(existingItem.GetQuantity() - quantity);
+                    existingItem.Quantity = (existingItem.Quantity - quantity);
                 }
                 Save();
                 return existingItem;
@@ -168,17 +168,17 @@ namespace CKK.Persistance.Models
         }
         public List<StoreItem> GetProductsByQuantity()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.GetQuantity()));
+            return new List<StoreItem>(Items.OrderByDescending(t => t.Quantity));
         }
 
         public List<StoreItem> GetProductsByPrice()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.GetProduct().GetPrice()));
+            return new List<StoreItem>(Items.OrderByDescending(t => t.Product.Price));
         }
 
         public List<StoreItem> GetProductsByName(string name)
         {
-            return new List<StoreItem>(Items.Where(i => i.GetProduct().GetName().ToLower().Contains(name.ToLower())));
+            return new List<StoreItem>(Items.Where(i => i.Product.Name.ToLower().Contains(name.ToLower())));
         }
     }
 }

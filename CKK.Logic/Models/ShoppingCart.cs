@@ -25,7 +25,7 @@ namespace CKK.Logic.Models
 
         public int GetCustomerId()
         {
-            return Customer.GetId();
+            return Customer.Id;
         }
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
@@ -34,7 +34,7 @@ namespace CKK.Logic.Models
             {
                 throw new InventoryItemStockTooLowException();
             }
-            var existingItem = GetProductById(prod.GetId());
+            var existingItem = GetProductById(prod.Id);
             if(existingItem == null)
             {
                 var newItem = new ShoppingCartItem(prod, quantity);
@@ -42,7 +42,7 @@ namespace CKK.Logic.Models
                 return newItem;
             } else
             { 
-                existingItem.SetQuantity(existingItem.GetQuantity() + quantity);
+                existingItem.Quantity += quantity;
                 return existingItem;
             }
         }
@@ -56,14 +56,14 @@ namespace CKK.Logic.Models
             var existingItem = GetProductById(id);
             if (existingItem != null)
             {
-                if (existingItem.GetQuantity() - quantity <= 0)
+                if (existingItem.Quantity - quantity <= 0)
                 {
-                    existingItem.SetQuantity(0);
+                    existingItem.Quantity = (0);
                     Products.Remove(existingItem);
                 }
                 else
                 {
-                    existingItem.SetQuantity(existingItem.GetQuantity() - quantity);
+                    existingItem.Quantity -= quantity;
                 }
                 return existingItem;
             }
@@ -78,7 +78,7 @@ namespace CKK.Logic.Models
             {
                 throw new InvalidIdException();
             }
-            return Products.FirstOrDefault(p => p.GetProduct().GetId() == id);            
+            return Products.FirstOrDefault(p => p.Product.Id == id);            
         }
 
         public decimal GetTotal()
@@ -86,9 +86,9 @@ namespace CKK.Logic.Models
             var grandTotal = 0m;
             foreach(var product in Products)
             {
-                grandTotal += (product.GetProduct().GetPrice() * product.GetQuantity());
+                grandTotal += (product.Product.Price * product.Quantity);
             }
-            //Products.ForEach(p => grandTotal += p.GetProduct().GetPrice()); //Make it all one line using inline foreach
+            //Products.ForEach(p => grandTotal += p.Product.Price); //Make it all one line using inline foreach
             return grandTotal;
         }
 

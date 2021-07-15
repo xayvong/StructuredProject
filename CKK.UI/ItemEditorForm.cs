@@ -26,10 +26,10 @@ namespace CKK.UI
         {
             if (Item != null)
             {
-                IdTextBox.Text = Item.GetProduct().GetId().ToString();
-                NameTextBox.Text = Item.GetProduct().GetName();
-                PriceTextBox.Value = Item.GetProduct().GetPrice();
-                QuantityTextBox.Value = Item.GetQuantity();
+                IdTextBox.Text = Item.Product.Id.ToString();
+                NameTextBox.Text = Item.Product.Name;
+                PriceTextBox.Value = Item.Product.Price;
+                QuantityTextBox.Value = Item.Quantity;
             }
         }
 
@@ -44,9 +44,9 @@ namespace CKK.UI
                 }
             } else
             {
-                Item.GetProduct().SetName(NameTextBox.Text);
-                Item.GetProduct().SetPrice(PriceTextBox.Value);
-                Item.SetQuantity((int)QuantityTextBox.Value);
+                Item.Product.Name =(NameTextBox.Text);
+                Item.Product.Price = (PriceTextBox.Value);
+                Item.Quantity = ((int)QuantityTextBox.Value);
             }
         }
 

@@ -15,8 +15,8 @@ namespace CKK.Tests
                 Store store = new();
                 int expected = 12345;
                 //Act
-                store.SetId(expected);
-                int actual = store.GetId();
+                store.Id = (expected);
+                int actual = store.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }
@@ -36,8 +36,8 @@ namespace CKK.Tests
                 var expected = "John Doe";
 
                 //Act
-                store.SetName(expected);
-                var actual = store.GetName();
+                store.Name =(expected);
+                var actual = store.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -80,7 +80,7 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product = new Product();
-                product.SetId(1);
+                product.Id = (1);
                 var expected = store.AddStoreItem(product, 5);
                 //Act
 
@@ -103,7 +103,7 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product = new Product();
-                product.SetId(2);
+                product.Id = (2);
 
                 //Act
                 store.AddStoreItem(product, 5);
@@ -111,7 +111,7 @@ namespace CKK.Tests
 
                 var expected = 6;
 
-                var actual = store.FindStoreItemById(2).GetQuantity();
+                var actual = store.FindStoreItemById(2).Quantity;
 
                 //Assert
                 Assert.Single(store.GetStoreItems()); //At this point, there should only be one item.
@@ -131,9 +131,9 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
 
                 //Act
                 store.AddStoreItem(product1, 3);
@@ -142,16 +142,16 @@ namespace CKK.Tests
 
                 var expected = 6;
 
-                var actual = store.FindStoreItemById(1).GetQuantity();
+                var actual = store.FindStoreItemById(1).Quantity;
                 //Assert
 
                 Assert.Collection(store.GetStoreItems(),
                     elem1 => {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
+                        Assert.Equal(1, elem1.Product.Id);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
+                        Assert.Equal(2, elem2.Product.Id);
                     }
                     );
                 Assert.Equal(expected, actual);
@@ -170,11 +170,11 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 store.AddStoreItem(product1, 2);
                 store.AddStoreItem(product2, 3);
@@ -187,18 +187,18 @@ namespace CKK.Tests
                 Assert.Collection(store.GetStoreItems(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(1, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     },
                     elem3 =>
                     {
-                        Assert.Equal(3, elem3.GetProduct().GetId());
-                        Assert.Equal(4, elem3.GetQuantity());
+                        Assert.Equal(3, elem3.Product.Id);
+                        Assert.Equal(4, elem3.Quantity);
                     });
                 Assert.Equal(store.FindStoreItemById(3), actual);
             }
@@ -216,11 +216,11 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 store.AddStoreItem(product1, 2);
                 store.AddStoreItem(product2, 3);
@@ -233,18 +233,18 @@ namespace CKK.Tests
                 Assert.Collection(store.GetStoreItems(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(1, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     },
                     elem3 =>
                     {
-                        Assert.Equal(3, elem3.GetProduct().GetId());
-                        Assert.Equal(0, elem3.GetQuantity());
+                        Assert.Equal(3, elem3.Product.Id);
+                        Assert.Equal(0, elem3.Quantity);
                     });
                 Assert.Equal(store.FindStoreItemById(3), actual);
             }
@@ -262,11 +262,11 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 store.AddStoreItem(product1, 2);
                 store.AddStoreItem(product2, 3);
@@ -279,18 +279,18 @@ namespace CKK.Tests
                 Assert.Collection(store.GetStoreItems(),
                     elem1 =>
                     {
-                        Assert.Equal(1, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(1, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     },
                     elem3 =>
                     {
-                        Assert.Equal(3, elem3.GetProduct().GetId());
-                        Assert.Equal(0, elem3.GetQuantity());
+                        Assert.Equal(3, elem3.Product.Id);
+                        Assert.Equal(0, elem3.Quantity);
                     });
                 Assert.Equal(store.FindStoreItemById(3), actual);
             }
@@ -308,9 +308,9 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
 
                 store.AddStoreItem(product1, 3);
                 var expected = store.AddStoreItem(product2, 5);
@@ -336,7 +336,7 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(100);
+                product1.Id = (100);
                 //Act
                 store.AddStoreItem(product1, 40);
 
@@ -357,7 +357,7 @@ namespace CKK.Tests
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(100);
+                product1.Id = (100);
                 //Act
                 store.AddStoreItem(product1, 40);
                 store.RemoveStoreItem(100, 50);

@@ -13,12 +13,12 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
 
                 //Act
                 var product = new Product();
-                product.SetId(1);
+                product.Id = (1);
                 try
                 {
                     var actual = cart.AddProduct(product, -5);
@@ -40,10 +40,10 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product = new Product();
-                product.SetId(5);
+                product.Id = (5);
                 //Act
                 var expected = cart.AddProduct(product, 5);
 
@@ -63,16 +63,16 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product = new Product();
-                product.SetId(5);
+                product.Id = (5);
                 //Act
                 cart.AddProduct(product, 5);
                 cart.AddProduct(product, 1);
 
                 var expected = 6;
-                var actual = cart.GetProductById(5).GetQuantity();
+                var actual = cart.GetProductById(5).Quantity;
 
                 //Assert
                 Assert.Single(cart.GetProducts());
@@ -94,12 +94,12 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
 
                 //Act
                 cart.AddProduct(product1, 3);
@@ -107,18 +107,18 @@ namespace CKK.Tests
                 cart.AddProduct(product1, 3);
 
                 var expected = 6;
-                var actual = cart.GetProductById(5).GetQuantity();
+                var actual = cart.GetProductById(5).Quantity;
                 //Assert
 
                 Assert.Collection(cart.GetProducts(),
                     elem1 => {
-                        Assert.Equal(5, elem1.GetProduct().GetId());
-                        Assert.Equal(expected, elem1.GetQuantity());
+                        Assert.Equal(5, elem1.Product.Id);
+                        Assert.Equal(expected, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(9, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(9, elem2.Quantity);
                     }
                     );
                 Assert.Equal(expected, actual);
@@ -136,14 +136,14 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 cart.AddProduct(product1, 2);
                 cart.AddProduct(product2, 3);
@@ -157,18 +157,18 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(5, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(5, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     },
                     elem3 =>
                     {
-                        Assert.Equal(3, elem3.GetProduct().GetId());
-                        Assert.Equal(4, elem3.GetQuantity());
+                        Assert.Equal(3, elem3.Product.Id);
+                        Assert.Equal(4, elem3.Quantity);
                     });
                 Assert.Equal(cart.GetProductById(3), actual);
             }
@@ -185,14 +185,14 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 cart.AddProduct(product1, 2);
                 cart.AddProduct(product2, 3);
@@ -205,15 +205,15 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(5, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(5, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     });
-                Assert.Equal(0, actual.GetQuantity());
+                Assert.Equal(0, actual.Quantity);
             }
             catch
             {
@@ -229,14 +229,14 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 cart.AddProduct(product1, 2);
                 cart.AddProduct(product2, 3);
@@ -249,15 +249,15 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(5, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(5, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     });
-                Assert.Equal(0,actual.GetQuantity());
+                Assert.Equal(0,actual.Quantity);
             }
             catch
             {
@@ -272,14 +272,14 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
 
                 cart.AddProduct(product1, 2);
                 cart.AddProduct(product2, 3);
@@ -292,15 +292,15 @@ namespace CKK.Tests
                 Assert.Collection(cart.GetProducts(),
                     elem1 =>
                     {
-                        Assert.Equal(5, elem1.GetProduct().GetId());
-                        Assert.Equal(2, elem1.GetQuantity());
+                        Assert.Equal(5, elem1.Product.Id);
+                        Assert.Equal(2, elem1.Quantity);
                     },
                     elem2 =>
                     {
-                        Assert.Equal(2, elem2.GetProduct().GetId());
-                        Assert.Equal(3, elem2.GetQuantity());
+                        Assert.Equal(2, elem2.Product.Id);
+                        Assert.Equal(3, elem2.Quantity);
                     });
-                Assert.Equal(0, actual.GetQuantity());
+                Assert.Equal(0, actual.Quantity);
             }
             catch
             {
@@ -315,12 +315,12 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
 
                 //Act
                 var expected = cart.AddProduct(product1, 3);
@@ -346,10 +346,10 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(5);
+                product1.Id = (5);
 
                 //Act
                 cart.AddProduct(product1, 40);
@@ -370,10 +370,10 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(100);
+                product1.Id = (100);
                 //Act
                 cart.AddProduct(product1, 40);
                 cart.RemoveProduct(100, 50);
@@ -394,17 +394,17 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(1);
-                product1.SetPrice(.50m);
+                product1.Id = (1);
+                product1.Price = (.50m);
                 var product2 = new Product();
-                product2.SetId(2);
-                product2.SetPrice(1);
+                product2.Id = (2);
+                product2.Price = (1);
                 var product3 = new Product();
-                product3.SetId(3);
-                product3.SetPrice(2.50m);
+                product3.Id = (3);
+                product3.Price = (2.50m);
 
                 cart.AddProduct(product1, 2);
                 cart.AddProduct(product2, 4);
@@ -427,14 +427,14 @@ namespace CKK.Tests
             {
                 //Assemble
                 Customer cust = new Customer();
-                cust.SetId(1);
+                cust.Id = (1);
                 ShoppingCart cart = new ShoppingCart(cust);
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = (1);
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = (2);
                 var product3 = new Product();
-                product3.SetId(3);
+                product3.Id = (3);
                 //Act
 
                 var item1 = cart.AddProduct(product1, 1);

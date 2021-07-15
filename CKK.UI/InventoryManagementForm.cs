@@ -1,5 +1,6 @@
 ﻿using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
+using CKK.Logic.Repository.Interfaces;
 using CKK.Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace CKK.UI
             //Only if the user hits the Create button will it add it to the store. 
             if(result == DialogResult.OK)
             {
-                Store.AddStoreItem(newItemForm.Item.GetProduct(), newItemForm.Item.GetQuantity());
+                Store.AddStoreItem(newItemForm.Item.Product, newItemForm.Item.Quantity);
                 RefreshList();
             }
 
@@ -84,7 +85,7 @@ namespace CKK.UI
 
                 if(result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.GetProduct().GetId());
+                    Store.DeleteStoreItem(selected.Product.Id);
                 }
             }
             RefreshList();

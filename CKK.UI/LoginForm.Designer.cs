@@ -116,7 +116,6 @@ namespace CKK.UI
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button LoginButton;
         private System.Windows.Forms.TextBox UsernameTextBox;
         private System.Windows.Forms.TextBox PasswordTextBox;

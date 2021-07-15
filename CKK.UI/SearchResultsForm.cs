@@ -74,7 +74,7 @@ namespace CKK.UI
 
                 if (result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.GetProduct().GetId());
+                    Store.DeleteStoreItem(selected.Product.Id);
                     SearchResultsListBox.Items.RemoveAt(selectedIndex);
                 }
             }
