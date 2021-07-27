@@ -17,7 +17,7 @@ namespace CKK.Logic.Repository.InMemory
         }
         public Customer Find(int id)
         {
-            return Context.Find(i => i.Id == id);
+            return Context.Find(i => i.CustomerId == id);
         }
     }
 }

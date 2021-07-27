@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Repository.Interfaces
 {
-    public interface IOrderRepository : IRepository<OrderSummary>
+    public interface IOrderRepository : IRepository<Order>
     {
-        OrderSummary GetOrderByCustomerId(int id);
-        //Wait till we set up Entity Framework to put Id in...
-        //OrderSummary GetOrderById(int id);
+        public Order GetOrderById(int id);
     }
 }

@@ -2,6 +2,7 @@
 using CKK.Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,10 @@ namespace CKK.Logic.Interfaces
     {
         private int quantity;
         public Product Product { get; set; }
-        public int Quantity {
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }
+        public int Quantity
+        {
             get
             {
                 return quantity;
@@ -23,13 +27,14 @@ namespace CKK.Logic.Interfaces
                 if (value >= 0)
                 {
                     quantity = value;
-                } else
+                }
+                else
                 {
                     throw new InventoryItemStockTooLowException();
                 }
             }
         }
 
-        public override string ToString() => $"#{Product.Id,-4}  {Product.Name,-30} {$"Quantity: {Quantity:N0}",-13}";
+        public override string ToString() => $"#{Product.ProductId,-4}  {Product.Name,-30} {$"Quantity: {Product.Quantity:N0}",-13}";
     }
 }

@@ -10,11 +10,8 @@ namespace CKK.Logic.Models
     [Serializable]
     public class ShoppingCartItem : InventoryItem
     {
-        public ShoppingCartItem(Product product, int quantity)
-        {
-            Product = (product);
-            Quantity = (quantity);
-        }
+        public int ShoppingCartItemId { get; set; }
+        public List<ShoppingCart> Carts {get; set;} = new List<ShoppingCart>();
 
         public decimal GetTotal()
         {

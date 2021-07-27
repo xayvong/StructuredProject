@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Repository.InMemory
 {
-    public class InMemoryOrderRepository : InMemoryRepository<OrderSummary>, IOrderRepository
+    public class InMemoryOrderRepository : InMemoryRepository<OrderSummary>, IOrderSummaryRepository
     {
 
         public InMemoryOrderRepository()
@@ -19,7 +19,8 @@ namespace CKK.Logic.Repository.InMemory
 
         public OrderSummary GetOrderByCustomerId(int id)
         {
-            return Context.Find(i => i.Customer.Id == id);
+            return null;
+         //   return Context.Find(i => i.Customer.Id == id);
         }
     }
 }

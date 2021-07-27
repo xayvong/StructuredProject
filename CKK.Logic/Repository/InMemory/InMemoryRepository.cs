@@ -18,9 +18,10 @@ namespace CKK.Logic.Repository.InMemory
             Context = context;
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             Context.Add(entity);
+            return entity;
         }
 
         public void AddRange(IEnumerable<TEntity> entities)

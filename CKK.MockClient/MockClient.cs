@@ -13,7 +13,7 @@ namespace CKK.MockClient
 {
     class MockClient
     {
-        private static IShoppingCart cart = new ShoppingCart(new Customer());
+        private static IShoppingCart cart = null;// new ShoppingCart(new Customer());
         private static IStore store = new FileStore();
         static void Main(string[] args)
         {
@@ -117,7 +117,7 @@ namespace CKK.MockClient
             Console.WriteLine("------------------");
             Console.WriteLine("Which one would you like to remove?");
             var input = int.Parse(Console.ReadLine());
-            cart.RemoveProduct(cart.GetProducts()[input].Product.Id, 1);
+            cart.RemoveProduct(cart.GetProducts()[input].Product.ProductId, 1);
         }
 
 

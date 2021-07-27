@@ -26,7 +26,7 @@ namespace CKK.UI
         {
             if (Item != null)
             {
-                IdTextBox.Text = Item.Product.Id.ToString();
+                IdTextBox.Text = Item.Product.ProductId.ToString();
                 NameTextBox.Text = Item.Product.Name;
                 PriceTextBox.Value = Item.Product.Price;
                 QuantityTextBox.Value = Item.Quantity;
@@ -46,7 +46,7 @@ namespace CKK.UI
             {
                 Item.Product.Name =(NameTextBox.Text);
                 Item.Product.Price = (PriceTextBox.Value);
-                Item.Quantity = ((int)QuantityTextBox.Value);
+                Item.Product.Quantity = ((int)QuantityTextBox.Value);
             }
         }
 

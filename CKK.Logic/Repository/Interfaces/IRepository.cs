@@ -13,7 +13,7 @@ namespace CKK.Logic.Repository.Interfaces
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
 
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);

@@ -23,11 +23,11 @@ namespace CKK.Logic.Models
             {
                 throw new InventoryItemStockTooLowException();
             }
-            if(product.Id == 0)
+            if(product.ProductId == 0)
             {
-                product.Id = (++IdCounter);
+                product.ProductId = (++IdCounter);
             }
-            var existingItem = FindStoreItemById(product.Id);
+            var existingItem = FindStoreItemById(product.ProductId);
             if(existingItem == null)
             {
                 StoreItem newItem = new StoreItem(product, quantity);
@@ -81,7 +81,7 @@ namespace CKK.Logic.Models
             {
                 throw new InvalidIdException();
             }
-            return Items.FirstOrDefault(p => p.Product.Id == id);            
+            return Items.FirstOrDefault(p => p.Product.ProductId == id);            
         }
 
         public List<StoreItem> GetStoreItems()

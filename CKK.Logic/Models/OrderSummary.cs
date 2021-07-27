@@ -13,25 +13,17 @@ namespace CKK.Logic.Models
         //public int Id { get; set; }
         public OrderSummary(Customer cust)
         {
-            Cart = new ShoppingCart(cust);
+            //Cart = new ShoppingCart(cust);
         }
 
         public OrderSummary(IShoppingCart cart)
         {
             Cart = cart;
         }
+
         //Only going to have these two things
         public IShoppingCart Cart { get; set; }
-        public Customer Customer {
-            get
-            {
-                return Cart.Customer;
-            }
-            set
-            {
-                Cart.Customer = value;
-            }
-        }
+        
         //Order Time data
         //
     }

@@ -9,8 +9,8 @@ namespace CKK.Logic.Repository.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         ICustomerRepository Customers { get; }
-        IOrderRepository Orders { get; }
-        IStoreItemRepository Stores { get; }
+        IOrderSummaryRepository Orders { get; }
+        IStoreItemRepository StoreItems { get; }
         int Complete();
     }
 }

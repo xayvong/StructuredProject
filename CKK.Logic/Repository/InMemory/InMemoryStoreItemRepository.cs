@@ -18,17 +18,21 @@ namespace CKK.Logic.Repository.InMemory
 
         public StoreItem Find(int id)
         {
-            return Context.Find(i => i.Product.Id == id);
+            return Context.Find(i => i.Product.ProductId == id);
         }
 
-        public StoreItem Find(string name)
+        public IEnumerable<StoreItem> Find(string name)
         {
-            return Context.Find(i => i.Product.Name == name);
+            return Context.Where(i => i.Product.Name.ToLower().Contains(name.ToLower()));
         }
 
         public IEnumerable<StoreItem> GetItemsByQuantity()
         {
             return Context.OrderBy(i => i.Quantity);
+        }
+        public IEnumerable<StoreItem> GetItemsByPrice()
+        {
+            return Context.OrderByDescending(i => i.Product.Price);
         }
     }
 }

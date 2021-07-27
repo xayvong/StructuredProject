@@ -69,7 +69,7 @@ namespace CKK.UI
                 editor.ShowDialog();
                 RefreshList();
                 InventoryList.SelectedIndex = selectedIndex;
-                if(Store is ISavable store)
+                if (Store is ISavable store)
                 {
                     store.Save();
                 }
@@ -85,7 +85,7 @@ namespace CKK.UI
 
                 if(result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.Product.Id);
+                    Store.DeleteStoreItem(selected.Product.ProductId);
                 }
             }
             RefreshList();

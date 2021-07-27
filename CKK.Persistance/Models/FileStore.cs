@@ -34,11 +34,11 @@ namespace CKK.Persistance.Models
             {
                 throw new InventoryItemStockTooLowException();
             }
-            if (product.Id == 0)
+            if (product.ProductId == 0)
             {
-                product.Id = (++IdCounter);
+                product.ProductId = (++IdCounter);
             }
-            var existingItem = FindStoreItemById(product.Id);
+            var existingItem = FindStoreItemById(product.ProductId);
             if (existingItem == null)
             {
                 StoreItem newItem = new StoreItem(product, quantity);
@@ -71,7 +71,7 @@ namespace CKK.Persistance.Models
             {
                 throw new InvalidIdException();
             }
-            return Items.FirstOrDefault(p => p.Product.Id == id);
+            return Items.FirstOrDefault(p => p.Product.ProductId == id);
         }
 
         public List<StoreItem> GetStoreItems()
@@ -90,9 +90,9 @@ namespace CKK.Persistance.Models
                 IdCounter = Items.Count + 1;
                 foreach (var item in Items)
                 {
-                    if (item.Product.Id == 0)
+                    if (item.Product.ProductId == 0)
                     {
-                        item.Product.Id = (++IdCounter);
+                        item.Product.ProductId = (++IdCounter);
                     }
                 }
 

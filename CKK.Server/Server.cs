@@ -43,7 +43,7 @@ namespace CKK.Server
                         {
                             var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
                             var cart = json.ToObject<ShoppingCart>();
-                            order = new OrderSummary(cart);
+                        //    order = new OrderSummary(cart);
                             msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are :'{ShoppingQueue.Count}' orders ahead of you.");
                         }
                         catch(Exception)
