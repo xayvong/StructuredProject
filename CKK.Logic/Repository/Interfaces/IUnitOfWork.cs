@@ -10,7 +10,7 @@ namespace CKK.Logic.Repository.Interfaces
     {
         ICustomerRepository Customers { get; }
         IOrderSummaryRepository Orders { get; }
-        IStoreItemRepository StoreItems { get; }
+        //IStoreItemRepository StoreItems { get; }
         int Complete();
     }
 }

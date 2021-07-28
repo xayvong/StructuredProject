@@ -100,7 +100,7 @@ namespace CKK.MockClient
             Console.WriteLine("Which Item would you like to add?");
             var input = int.Parse(Console.ReadLine());
             var selectedItem = store.GetStoreItems()[input];
-            cart.AddProduct(selectedItem.Product, 1);
+            cart.AddProduct(selectedItem, 1);
             Console.Clear();
             Console.WriteLine("Item Added.");
         }

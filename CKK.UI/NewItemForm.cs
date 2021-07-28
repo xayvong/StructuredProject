@@ -14,7 +14,7 @@ namespace CKK.UI
 {
     public partial class NewItemForm : Form
     {
-        public InventoryItem Item { get; private set; }
+        public Product Item { get; private set; }
         public NewItemForm()
         {
             InitializeComponent();
@@ -25,7 +25,8 @@ namespace CKK.UI
             var prod = new Product();
             prod.Name =(NameTextBox.Text);
             prod.Price = (PriceTextBox.Value);
-            Item = new StoreItem(prod, (int)QuantityTextBox.Value);
+            prod.Quantity = (int)QuantityTextBox.Value;
+            Item = prod;
             DialogResult = DialogResult.OK;
             Close();
         }

@@ -1,4 +1,5 @@
 ﻿using CKK.Logic.Interfaces;
+using CKK.Logic.Models;
 using CKK.Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace CKK.UI
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            var selected = (InventoryItem)SearchResultsListBox.SelectedItem;
+            var selected = (Product)SearchResultsListBox.SelectedItem;
             var selectedIndex = SearchResultsListBox.SelectedIndex;
             if (selected != null)
             {
@@ -66,7 +67,7 @@ namespace CKK.UI
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            var selected = (InventoryItem)SearchResultsListBox.SelectedItem;
+            var selected = (Product)SearchResultsListBox.SelectedItem;
             var selectedIndex = SearchResultsListBox.SelectedIndex;
             if (selected != null)
             {
@@ -74,7 +75,7 @@ namespace CKK.UI
 
                 if (result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.Product.ProductId);
+                    Store.DeleteStoreItem(selected.ProductId);
                     SearchResultsListBox.Items.RemoveAt(selectedIndex);
                 }
             }

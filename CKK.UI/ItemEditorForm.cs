@@ -14,8 +14,8 @@ namespace CKK.UI
 {
     public partial class ItemEditorForm : Form
     {
-        private InventoryItem Item;
-        public ItemEditorForm(InventoryItem item)
+        private Product Item;
+        public ItemEditorForm(Product item)
         {
             Item = item;
             InitializeComponent();
@@ -26,9 +26,9 @@ namespace CKK.UI
         {
             if (Item != null)
             {
-                IdTextBox.Text = Item.Product.ProductId.ToString();
-                NameTextBox.Text = Item.Product.Name;
-                PriceTextBox.Value = Item.Product.Price;
+                IdTextBox.Text = Item.ProductId.ToString();
+                NameTextBox.Text = Item.Name;
+                PriceTextBox.Value = Item.Price;
                 QuantityTextBox.Value = Item.Quantity;
             }
         }
@@ -44,9 +44,9 @@ namespace CKK.UI
                 }
             } else
             {
-                Item.Product.Name =(NameTextBox.Text);
-                Item.Product.Price = (PriceTextBox.Value);
-                Item.Product.Quantity = ((int)QuantityTextBox.Value);
+                Item.Name =(NameTextBox.Text);
+                Item.Price = (PriceTextBox.Value);
+                Item.Quantity = ((int)QuantityTextBox.Value);
             }
         }
 

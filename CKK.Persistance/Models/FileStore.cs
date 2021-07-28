@@ -16,7 +16,7 @@ namespace CKK.Persistance.Models
 {
     public class FileStore : IStore, ILoadable, ISavable
     {
-        private List<StoreItem> Items;
+        private List<Product> Items;
         private readonly string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
         private int IdCounter = 0;
 
@@ -28,7 +28,7 @@ namespace CKK.Persistance.Models
         }
 
 
-        public StoreItem AddStoreItem(Product product, int quantity)
+        public Product AddStoreItem(Product product, int quantity)
         {
             if (quantity < 0)
             {
@@ -41,10 +41,10 @@ namespace CKK.Persistance.Models
             var existingItem = FindStoreItemById(product.ProductId);
             if (existingItem == null)
             {
-                StoreItem newItem = new StoreItem(product, quantity);
-                Items.Add(newItem);
+                product.Quantity = quantity;
+                Items.Add(product);
                 Save();
-                return newItem;
+                return product;
             }
             else
             {
@@ -54,7 +54,7 @@ namespace CKK.Persistance.Models
             }
         }
 
-        public StoreItem DeleteStoreItem(int id)
+        public Product DeleteStoreItem(int id)
         {
             var existingItem = FindStoreItemById(id);
             if (existingItem != null)
@@ -65,16 +65,16 @@ namespace CKK.Persistance.Models
             return existingItem;
         }
 
-        public StoreItem FindStoreItemById(int id)
+        public Product FindStoreItemById(int id)
         {
             if (id < 0)
             {
                 throw new InvalidIdException();
             }
-            return Items.FirstOrDefault(p => p.Product.ProductId == id);
+            return Items.FirstOrDefault(p => p.ProductId == id);
         }
 
-        public List<StoreItem> GetStoreItems()
+        public List<Product> GetStoreItems()
         {
             return Items;
         }
@@ -86,13 +86,13 @@ namespace CKK.Persistance.Models
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                Items = (List<StoreItem>)formatter.Deserialize(stream);
+                Items = (List<Product>)formatter.Deserialize(stream);
                 IdCounter = Items.Count + 1;
                 foreach (var item in Items)
                 {
-                    if (item.Product.ProductId == 0)
+                    if (item.ProductId == 0)
                     {
-                        item.Product.ProductId = (++IdCounter);
+                        item.ProductId = (++IdCounter);
                     }
                 }
 
@@ -114,7 +114,7 @@ namespace CKK.Persistance.Models
 
         }
 
-        public StoreItem RemoveStoreItem(int id, int quantity)
+        public Product RemoveStoreItem(int id, int quantity)
         {
             if (quantity < 0)
             {
@@ -166,19 +166,19 @@ namespace CKK.Persistance.Models
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance");
         }
-        public List<StoreItem> GetProductsByQuantity()
+        public List<Product> GetProductsByQuantity()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.Quantity));
+            return new List<Product>(Items.OrderByDescending(t => t.Quantity));
         }
 
-        public List<StoreItem> GetProductsByPrice()
+        public List<Product> GetProductsByPrice()
         {
-            return new List<StoreItem>(Items.OrderByDescending(t => t.Product.Price));
+            return new List<Product>(Items.OrderByDescending(t => t.Price));
         }
 
-        public List<StoreItem> GetProductsByName(string name)
+        public List<Product> GetProductsByName(string name)
         {
-            return new List<StoreItem>(Items.Where(i => i.Product.Name.ToLower().Contains(name.ToLower())));
+            return new List<Product>(Items.Where(i => i.Name.ToLower().Contains(name.ToLower())));
         }
     }
 }

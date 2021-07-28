@@ -9,13 +9,13 @@ namespace CKK.Logic.Interfaces
 {
     public interface IStore
     {
-        public StoreItem AddStoreItem(Product prod, int quantity);
-        public StoreItem RemoveStoreItem(int id, int quantity);
-        public StoreItem DeleteStoreItem(int id);
-        public StoreItem FindStoreItemById(int id);
-        public List<StoreItem> GetStoreItems();
-        public List<StoreItem> GetProductsByName(string name);
-        public List<StoreItem> GetProductsByQuantity();
-        public List<StoreItem> GetProductsByPrice();
+        public Product AddStoreItem(Product prod, int quantity);
+        public Product RemoveStoreItem(int id, int quantity);
+        public Product DeleteStoreItem(int id);
+        public Product FindStoreItemById(int id);
+        public List<Product> GetStoreItems();
+        public List<Product> GetProductsByName(string name);
+        public List<Product> GetProductsByQuantity();
+        public List<Product> GetProductsByPrice();
     }
 }

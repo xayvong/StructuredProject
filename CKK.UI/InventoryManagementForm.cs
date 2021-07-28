@@ -53,7 +53,7 @@ namespace CKK.UI
             //Only if the user hits the Create button will it add it to the store. 
             if(result == DialogResult.OK)
             {
-                Store.AddStoreItem(newItemForm.Item.Product, newItemForm.Item.Quantity);
+                Store.AddStoreItem(newItemForm.Item, newItemForm.Item.Quantity);
                 RefreshList();
             }
 
@@ -61,7 +61,7 @@ namespace CKK.UI
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            var selected = (InventoryItem)InventoryList.SelectedItem;
+            var selected = (Product)InventoryList.SelectedItem;
             var selectedIndex = InventoryList.SelectedIndex;
             if (selected != null)
             {
@@ -78,14 +78,14 @@ namespace CKK.UI
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            var selected = (InventoryItem)InventoryList.SelectedItem;
+            var selected = (Product)InventoryList.SelectedItem;
             if(selected != null)
             {
                 var result = MessageBox.Show(this, "Are you sure you want to delete this item?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
                 if(result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.Product.ProductId);
+                    Store.DeleteStoreItem(selected.ProductId);
                 }
             }
             RefreshList();

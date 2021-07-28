@@ -20,56 +20,56 @@ namespace CKK.Logic.Repository
         }
         public DataRepoStore()
         {
-            CKKDbContext context = new CKKDbContext();
+            CKKDbContext context = new();
             UOW = new DataUnitOfWork(context);
         }
-        public StoreItem AddStoreItem(Product prod, int quantity)
+        public Product AddStoreItem(Product prod, int quantity)
         {
             prod.Quantity = quantity;
             UOW.Products.Add(prod);
             UOW.Complete();
-            return prod.Convert();
+            return prod;
         }
 
-        public StoreItem DeleteStoreItem(int id)
+        public Product DeleteStoreItem(int id)
         {
             var item = UOW.Products.Find(id);
             if (item != null)
             {
                 UOW.Products.Remove(item);
                 UOW.Complete();
-                return item.Convert();
+                return item;
             }
             return null;
            
         }
 
-        public StoreItem FindStoreItemById(int id)
+        public Product FindStoreItemById(int id)
         {
-            return UOW.Products.Find(id).Convert();
+            return UOW.Products.Find(id);
         }
 
-        public List<StoreItem> GetProductsByName(string name)
+        public List<Product> GetProductsByName(string name)
         {
-            return UOW.Products.Find(name).Convert();
+            return UOW.Products.Find(name).ToList();
         }
 
-        public List<StoreItem> GetProductsByPrice()
+        public List<Product> GetProductsByPrice()
         {
-            return UOW.Products.GetItemsByPrice().Convert();    
+            return UOW.Products.GetItemsByPrice().ToList();
         }
 
-        public List<StoreItem> GetProductsByQuantity()
+        public List<Product> GetProductsByQuantity()
         {
-            return UOW.Products.GetItemsByQuantity().Convert();
+            return UOW.Products.GetItemsByQuantity().ToList();
         }
 
-        public List<StoreItem> GetStoreItems()
+        public List<Product> GetStoreItems()
         {
-            return UOW.Products.GetAll().Convert();
+            return UOW.Products.GetAll().ToList();
         }
 
-        public StoreItem RemoveStoreItem(int id, int quantity)
+        public Product RemoveStoreItem(int id, int quantity)
         {
             var item = UOW.Products.Find(id);
             if (item != null)
@@ -85,23 +85,7 @@ namespace CKK.Logic.Repository
                 }
                 UOW.Complete();
             }
-            return item.Convert();
-        }
-    }
-    public static class ProductExtension
-    {
-        public static StoreItem Convert(this Product prod)
-        {
-            return new StoreItem(prod, prod.Quantity);
-        }
-        public static List<StoreItem> Convert(this IEnumerable<Product> prods)
-        {
-            var output = new List<StoreItem>();
-            foreach(var prod in prods)
-            {
-                output.Add(prod.Convert());
-            }
-            return output;
+            return item;
         }
     }
 }
