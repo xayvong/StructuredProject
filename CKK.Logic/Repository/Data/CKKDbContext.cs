@@ -5,6 +5,16 @@ namespace CKK.Logic.Repository.Data
 {
     public class CKKDbContext : DbContext
     {
+        public CKKDbContext(DbContextOptions<CKKDbContext> options)
+            :base(options)
+        {
+
+        }
+        public CKKDbContext()
+            :base()
+        {
+
+        }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }

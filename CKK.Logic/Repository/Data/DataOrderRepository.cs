@@ -28,7 +28,10 @@ namespace CKK.Logic.Repository.Data
 
         public Order GetOrderById(int id)
         {
-            return Context.Set<Order>().FirstOrDefault(p => p.OrderId == id);
+            return Context.Set<Order>()
+                .Include(o => o.ShoppingCart)
+                .ThenInclude(s => s.Customer)
+                .FirstOrDefault(p => p.OrderId == id);
         }
     }
 }

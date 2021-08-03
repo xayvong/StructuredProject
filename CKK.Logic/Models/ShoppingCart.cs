@@ -10,7 +10,15 @@ namespace CKK.Logic.Models
         public int ShoppingCartId { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        
-        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public List<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
+
+        //public decimal GetCartTotal()
+        //{
+        //    var total = 0m;
+        //    ShoppingCartItems.ForEach(a => total += a.Product.Price);
+        //    return total;
+        //}
     }
 }
+
+

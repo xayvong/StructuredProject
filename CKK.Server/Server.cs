@@ -12,7 +12,7 @@ namespace CKK.Server
 {
     class Server
     {
-        private static Queue<OrderSummary> ShoppingQueue = new();
+        private static Queue<Order> ShoppingQueue = new();
         public static void StartListening()
         {
             byte[] buffer = new byte[8192];
@@ -33,7 +33,7 @@ namespace CKK.Server
                 {
                     Console.WriteLine($"Waiting for a connection on {iPAddress}:11000...");
                     Socket handler = listenerSocket.Accept();
-                    OrderSummary order = null;
+                    Order order = null;
                     byte[] msg = null;
                     while(true)
                     {
@@ -42,7 +42,7 @@ namespace CKK.Server
                         try
                         {
                             var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
-                            var cart = json.ToObject<ShoppingCart>();
+                            order = json.ToObject<Order>();
                         //    order = new OrderSummary(cart);
                             msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are :'{ShoppingQueue.Count}' orders ahead of you.");
                         }
@@ -51,7 +51,7 @@ namespace CKK.Server
                             try
                             {
                                 var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
-                                order = json.ToObject<OrderSummary>();
+                                order = json.ToObject<Order>();
                                 msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are : '{ShoppingQueue.Count}' orders ahead of you.");
                             }catch (Exception)
                             {
@@ -71,8 +71,6 @@ namespace CKK.Server
                     {
                         Console.WriteLine("Failed to Add ShoppingCart");
                     }
-                    Random rand = new();
-                    Thread.Sleep(rand.Next(1000,5000));
                     handler.Send(msg);
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();

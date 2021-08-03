@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.Server", "CKK.Server\CK
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.MockClient", "CKK.MockClient\CKK.MockClient.csproj", "{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.Online", "CKK.Online\CKK.Online.csproj", "{1C28F0EF-02FB-42F4-BB20-132E1D7DFEA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F04CC43-AAA0-4418-8E92-5EE7DB504A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C28F0EF-02FB-42F4-BB20-132E1D7DFEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C28F0EF-02FB-42F4-BB20-132E1D7DFEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C28F0EF-02FB-42F4-BB20-132E1D7DFEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C28F0EF-02FB-42F4-BB20-132E1D7DFEA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

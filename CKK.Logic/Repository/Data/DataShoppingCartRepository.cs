@@ -17,15 +17,31 @@ namespace CKK.Logic.Repository.Data
 
         }
 
-        public ShoppingCartItem AddToCart(int shoppingCartId, int itemId, int quantity)
+        public ShoppingCart Find(int id)
         {
-            var shoppingCartItem = Context.Set<Product>().FirstOrDefault(i => i.ProductId == itemId);
-            ShoppingCartItem Item = new ShoppingCartItem() { Product = shoppingCartItem, Quantity = quantity };
-            var cart = Find(f => f.ShoppingCartId == shoppingCartId).FirstOrDefault();
-            cart.ShoppingCartItems.Add(Item);
-            return Item;
+            return GetAll().Where(s => s.ShoppingCartId == id).FirstOrDefault();
         }
 
+        public ShoppingCartItem AddToCart(int shoppingCartId, int itemId, int quantity)
+        {
+            var cart = Find(shoppingCartId);
+            var product = Context.Set<Product>().FirstOrDefault(i => i.ProductId == itemId);
+            if(product == null)
+            {
+                return null;
+            }
+            var foundShoppingItem = cart.ShoppingCartItems.Where(p => p.ProductId == product.ProductId).FirstOrDefault();
+            if (foundShoppingItem != null)
+            {
+                foundShoppingItem.Quantity = quantity;
+            }
+            else
+            {
+                foundShoppingItem = new ShoppingCartItem() { Product = product, Quantity = quantity };
+                cart.ShoppingCartItems.Add(foundShoppingItem);
+            }                        
+            return foundShoppingItem;
+        }
         public ShoppingCartItem AddToCart(int shoppingCartId, string itemName, int quantity)
         {
             return AddToCart(shoppingCartId, Context.Set<Product>().FirstOrDefault(i => i.Name == itemName).ProductId, quantity);
@@ -52,10 +68,10 @@ namespace CKK.Logic.Repository.Data
         public decimal GetTotal(int shoppingCartId)
         {
             var total = 0m;
-            var cart = Find(f => f.ShoppingCartId == shoppingCartId).FirstOrDefault();
+            var cart = Find(shoppingCartId);
             foreach(var item in cart.ShoppingCartItems)
             {
-                total += item.Product.Price;
+                total += item.Product.Price * item.Quantity;
             }
             return total;
         }

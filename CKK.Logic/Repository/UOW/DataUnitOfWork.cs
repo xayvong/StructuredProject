@@ -11,8 +11,8 @@ namespace CKK.Logic.Repository.UOW
 {
     public class DataUnitOfWork : IDataUnitOfWork
     {
-        private readonly DbContext Context;
-        public DataUnitOfWork(DbContext context)
+        private readonly CKKDbContext Context;
+        public DataUnitOfWork(CKKDbContext context)
         {
             Context = context;
             ShoppingCarts = new DataShoppingCartRepository(context);

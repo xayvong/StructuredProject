@@ -1,5 +1,6 @@
 ﻿using CKK.Logic.Interfaces;
 using System;
+using System.Text.Json.Serialization;
 
 namespace CKK.Logic.Models
 {
