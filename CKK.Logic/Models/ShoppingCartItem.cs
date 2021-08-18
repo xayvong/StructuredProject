@@ -10,11 +10,10 @@ namespace CKK.Logic.Models
     public class ShoppingCartItem
     {
         public Product Product { get; set; }
-        [ForeignKey("Product")]
+        public int ShoppingCartId { get; set; }
+        public int CustomerId { get; set; }
         public int ProductId { get; set; }
-        private int quantity;
-        public int ShoppingCartItemId { get; set; }
-        public List<ShoppingCart> Carts {get; set;} = new List<ShoppingCart>();
+        private int quantity { get; set; }
         public int Quantity {
             get
             {

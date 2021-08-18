@@ -6,7 +6,8 @@ namespace CKK.Logic.Models
     {
         public int OrderId { get; set; }
         [JsonIgnore]
-        public ShoppingCart ShoppingCart { get; set; }
+        public string OrderNumber { get; set; }
+        public int CustomerId { get; set; }
         public int ShoppingCartId { get; set; }
     }
 }

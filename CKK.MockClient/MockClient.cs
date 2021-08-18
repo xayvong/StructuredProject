@@ -13,7 +13,7 @@ namespace CKK.MockClient
 {
     class MockClient
     {
-        private static IShoppingCart cart = null;// new ShoppingCart(new Customer());
+        private static IShoppingCart cart = null; // new ShoppingCart(new Customer());
         private static IStore store = new FileStore();
         static void Main(string[] args)
         {

@@ -1,5 +1,5 @@
 ﻿using CKK.Logic.Models;
-using CKK.Logic.Repository.Interfaces;
+using CKK.DB.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +10,17 @@ namespace CKK.Online.Models
     public class ShopModel
     {
         public Order Order { get; set; }
-        public IDataUnitOfWork UOW { get; set; }
-        public ShopModel(IDataUnitOfWork uow)
+        public IUnitOfWork UOW { get; set; }
+        public ShopModel(IUnitOfWork uow)
         {
             UOW = uow;
-            Order = uow.Orders.GetOrderById(1);
+            if (UOW.Orders.GetByIdAsync(1).Result == null)
+            {
+                //Testing to see if order gets added in
+                Order newOrder = new();
+                UOW.Orders.CreateOrder(newOrder);
+            }
+            Order = uow.Orders.GetByIdAsync(1).Result;
             /*//one time set up...
             var customer = new Customer { Address = "1234 Dreary Way", Name = "John Doe" };
             var cart = new ShoppingCart { Customer = customer };

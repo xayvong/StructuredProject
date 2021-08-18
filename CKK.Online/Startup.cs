@@ -1,6 +1,3 @@
-using CKK.Logic.Repository.Data;
-using CKK.Logic.Repository.Interfaces;
-using CKK.Logic.Repository.UOW;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CKK.DB.Interfaces;
+using CKK.DB.Repositories;
+using CKK.DB.UOW;
+using CKK.DB.DB;
 
 namespace CKK.Online
 {
@@ -27,8 +28,35 @@ namespace CKK.Online
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CKKDbContext>(ServiceLifetime.Scoped);
-            services.AddScoped<IDataUnitOfWork, DataUnitOfWork>();
+
+            services.AddScoped<DatabaseConnectionFactory>();
+            services.AddScoped<IProductRepository, ProductRepository>(sp =>
+            {
+                var factory = sp.GetRequiredService<DatabaseConnectionFactory>();
+                return new ProductRepository(factory);
+            });
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>(sp =>
+            {
+                var factory = sp.GetRequiredService<DatabaseConnectionFactory>();
+                return new ShoppingCartRepository(factory);
+            });
+            services.AddScoped<IOrderRepository, OrderRepository>(sp =>
+            {
+                var factory = sp.GetRequiredService<DatabaseConnectionFactory>();
+                return new OrderRepository(factory);
+            });
+            services.AddScoped<IUnitOfWork, UnitOfWork>(sp =>
+            {
+                var factory = sp.GetRequiredService<DatabaseConnectionFactory>();
+                return new UnitOfWork(factory);
+            });
+            //services.AddDbContext<CKKDbContext>(ServiceLifetime.Scoped);
+
+            //services.AddTransient<IProductRepository, ProductRepository>();
+            //services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+            //services.AddTransient<IOrderRepository, OrderRepository>();
+            //services.AddTransient<IUnitOfWork, UnitOfWork>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
