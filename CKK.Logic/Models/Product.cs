@@ -5,9 +5,10 @@ using System.Collections.Generic;
 namespace CKK.Logic.Models
 {
     [Serializable]
-    public class Product : Entity
+    public class Product
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         private decimal price;
         public decimal Price {
             get
@@ -26,7 +27,7 @@ namespace CKK.Logic.Models
             }
         }
         public int Quantity { get; set; }
-        public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
-        public override string ToString() => $"#{ProductId,-4}  {Name,-30} {$"Quantity: {Quantity:N0}",-13}";
+ 
+        public override string ToString() => $"#{Id,-4}  {Name,-30} {$"Quantity: {Quantity:N0}",-13}";
     }
 }

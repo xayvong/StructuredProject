@@ -43,21 +43,12 @@ namespace CKK.Server
                         {
                             var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
                             order = json.ToObject<Order>();
-                        //    order = new OrderSummary(cart);
                             msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are :'{ShoppingQueue.Count}' orders ahead of you.");
                         }
                         catch(Exception)
                         {
-                            try
-                            {
-                                var json = (JsonElement)JsonSerializer.Deserialize<object>(ref utf8Reader);
-                                order = json.ToObject<Order>();
-                                msg = Encoding.Default.GetBytes($"Successfully added order to the Queue. There are : '{ShoppingQueue.Count}' orders ahead of you.");
-                            }catch (Exception)
-                            {
                                 Console.WriteLine("Object failed to deserialize.");
-                                msg = Encoding.Default.GetBytes("Object Failed to be processed.");
-                            }                            
+                            msg = Encoding.Default.GetBytes("Object Failed to be processed.");          
                         }
                         break;
                     }

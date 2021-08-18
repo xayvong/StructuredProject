@@ -1,7 +1,5 @@
 ﻿using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
-using CKK.Logic.Repository.Interfaces;
-using CKK.Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,7 +83,7 @@ namespace CKK.UI
 
                 if(result == DialogResult.Yes)
                 {
-                    Store.DeleteStoreItem(selected.ProductId);
+                    Store.DeleteStoreItem(selected.Id);
                 }
             }
             RefreshList();
@@ -101,5 +99,7 @@ namespace CKK.UI
                 }
             }
         }
+
+        
     }
 }
