@@ -21,13 +21,7 @@ namespace CKK.Online.Models
                 UOW.Orders.CreateOrder(newOrder);
             }
             Order = uow.Orders.GetByIdAsync(1).Result;
-            /*//one time set up...
-            var customer = new Customer { Address = "1234 Dreary Way", Name = "John Doe" };
-            var cart = new ShoppingCart { Customer = customer };
-            var order = new Order { ShoppingCart = cart };
-            uow.Orders.Add(order);
-            uow.Complete();
-            Order = order;*/
+
         }
     }
 }
